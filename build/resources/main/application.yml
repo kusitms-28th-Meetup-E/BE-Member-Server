@@ -1,10 +1,9 @@
 server:
-  port: 8083
+  port: 0
 
 spring:
   application:
-    name: MemberService
-
+    name: user-service
   h2:
     console:
       enabled: true
@@ -36,13 +35,13 @@ spring:
 
 
 eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
-  instance:
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+      defaultZone: http://127.0.0.1:8761/eureka
 
 logging:
   level:

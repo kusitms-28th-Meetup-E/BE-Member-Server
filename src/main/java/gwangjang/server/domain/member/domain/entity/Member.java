@@ -1,6 +1,7 @@
 package gwangjang.server.domain.member.domain.entity;
 
 import gwangjang.server.domain.auth.application.dto.request.SignUpRequest;
+import gwangjang.server.domain.member.domain.entity.constant.Gender;
 import gwangjang.server.domain.member.domain.entity.constant.RegistrationStatus;
 import gwangjang.server.domain.member.domain.entity.constant.Role;
 import gwangjang.server.domain.member.domain.entity.constant.SocialProvider;
@@ -45,10 +46,13 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    private String nickname;
-
     private String loginId;
     private String loginPw;
+
+    private String nickname;
+
+    private String birth;
+    private String gender;
 
     public void tempSignUp() {
         this.registrationStatus = RegistrationStatus.COMPLETED;

@@ -1,9 +1,6 @@
 package gwangjang.server.domain.auth.presentation;
 
-import gwangjang.server.domain.auth.application.dto.request.LocalSignInRequest;
-import gwangjang.server.domain.auth.application.dto.request.SignInRequest;
-import gwangjang.server.domain.auth.application.dto.request.SignUpRequest;
-import gwangjang.server.domain.auth.application.dto.request.TestRequest;
+import gwangjang.server.domain.auth.application.dto.request.*;
 import gwangjang.server.domain.auth.application.dto.response.CheckNicknameResponse;
 import gwangjang.server.domain.auth.application.dto.response.ReissueTokenResponse;
 import gwangjang.server.domain.auth.application.dto.response.SignInResponse;
@@ -19,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -49,16 +47,21 @@ public class AuthController {
     @PostMapping("/signIn/{provider}")
     public ResponseEntity<SuccessResponse<SignInResponse>> socialSignIn(@PathVariable String provider,
                                                                   @Valid @RequestBody SignInRequest signInRequest) {
-        log.info("kakao login Hi");
         return ResponseEntity.ok(SuccessResponse.create(SIGN_IN_SUCCESS.getMessage(), this.authService.signIn(signInRequest.getToken(), provider)));
     }
 
 
-    @PutMapping("/signUp")
-    public ResponseEntity<SuccessResponse<SignInResponse>> socialSignUp(@RequestHeader(value = "Authorization") String token,
-                                                                  @Valid @RequestBody SignUpRequest signUpRequest) {
+    @PutMapping("/signUp/{provider}")
+    public ResponseEntity<SuccessResponse<SignInResponse>> socialSignUp(@PathVariable String provider,
+                                                                        @RequestHeader(value = "Authorization") String token,
+                                                                        @Valid @RequestBody SignUpRequest signUpRequest) {
         token = (token != null && token.startsWith("Bearer ")) ? token.substring(7) : token;
         return ResponseEntity.ok(SuccessResponse.create(SIGN_UP_SUCCESS.getMessage(), this.signUpService.signUp(token, signUpRequest)));
+    }
+
+    @PostMapping("/signUp")
+    public ResponseEntity<SuccessResponse<SignInResponse>> signUp(@Valid @RequestBody LocalSignUpRequest signUpRequest) {
+        return ResponseEntity.ok(SuccessResponse.create(SIGN_UP_SUCCESS.getMessage(), this.signUpService.localSignUp(signUpRequest)));
     }
 
     @GetMapping("/reissue")

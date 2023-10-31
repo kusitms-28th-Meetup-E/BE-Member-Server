@@ -14,5 +14,8 @@ public class MemberCheckService {
     public boolean checkNickname(String nickname) {
         return memberRepository.checkNickname(nickname);
     }
+    public boolean checkEmail(String email) {
+        return memberRepository.checkEmail(email);
+    }
 
 }

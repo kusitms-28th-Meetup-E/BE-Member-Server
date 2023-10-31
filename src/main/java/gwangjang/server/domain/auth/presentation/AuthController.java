@@ -26,7 +26,7 @@ import static gwangjang.server.domain.auth.presentation.constant.AuthResponseMes
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @Slf4j
 public class AuthController {
 

@@ -71,7 +71,7 @@ management:
 kakao:
   client:
     id: c1b38a40e2bba2be6a4fd18a38179d5f
-    redirect-uri: http://localhost:8888/member/api/auth
+    redirect-uri: http://localhost:8888/member/auth
     token-uri: https://kauth.kakao.com/oauth/token
     secret: ZkcLZF7NVt2h45ip2zXxj6QaRJisKeSu
 

@@ -1,12 +1,28 @@
-member:
-    image: gwangjang/member
-    depends_on:
-      - eureka
-      - apigateway
-    environment:
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
+version: '3'
+services:
+  apigateway:
+    image: gwangjang/apigateway
     ports:
-      - 8083:8083
+      - 8888:8888
     networks:
       - msa-network
-    build: ./MemberService
+
+  eureka:
+    image: gwangjang/eureka:latest
+    ports:
+      - 8761:8761
+    networks:
+      - msa-network
+
+   member:
+     image: gwangjang/member
+     depends_on:
+        - eureka
+        - apigateway
+     environment:
+          EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
+     ports:
+        - 8083:8083
+     networks:
+        - msa-network
+     build: ./MemberService

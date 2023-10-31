@@ -1,55 +1,65 @@
 server:
-  port: 0
+  port: 8083
 
 spring:
   application:
-    name: user-service
+    name: MemberService
+
   h2:
     console:
       enabled: true
-      path: /h2-console
+
+
 
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://local.cjdhyv98eoki.ap-northeast-2.rds.amazonaws.com:3306/gwang-jang?autoReconnection=true;sendStringParametersAsUnicode=false?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+
     hikari:
-      url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1
-      driver-class-name: org.h2.Driver
-      connectionTimeout: 30000
-      maximumPoolSize: 10
-      maxLifetime: 1800000
-      poolName: HikariCP
-      readOnly: false
-      connectionTestQuery: SELECT 1
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: 1234
+      pool-name: jpa-hikari-pool
+      maximum-pool-size: 5
+      jdbc-url: jdbc:mysql://local.cjdhyv98eoki.ap-northeast-2.rds.amazonaws.com:3306/gwang-jang?autoReconnection=true;sendStringParametersAsUnicode=false?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      username: admin
+      password: helloworld
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      data-source-properties:
+        rewriteBatchedStatements: true
 
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    properties:
-      hibernate:
-        format_sql: true
-        show_sql: true
-        dialect: org.hibernate.dialect.H2Dialect
-    hibernate:
+    database: mysql
+    hibernate: # hibernate 사용 설정
+
+      # 애플리케이션 실행 시점에 테이블을 다 지우고, 내가 가진 entity 정보를 보고 다시 테이블 자동 생성
       ddl-auto: update
+      generate-ddl: true
+    properties: # property 사용 설정
+      hibernate: # hibernate property 설정
+        format_sql: true
+        use_sql_comments: true
+    show-sql: false
+    open-in-view: true
+
+  data:
+    redis:
+      port: 6379
+      host: 127.0.0.1
+      password: helloworld
 
 
 eureka:
-  instance:
-    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://127.0.0.1:8761/eureka
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 
 logging:
   level:
     com.example.memberservice: DEBUG
 
-#token:
-#  expiration-time: 86400000 # 하루짜리 토큰 생성
-#  secret: changhwan2022changhwanchanghwan2022changhwanchanghwan2022changhwanchanghwan2022changhwanchanghwan2022changhwan
+
 
 greeting:
   message: Welcome to the Simple E-commerce.
@@ -59,3 +69,22 @@ management:
     web:
       exposure:
         include: refresh, health, beans
+kakao:
+  client:
+    id: c1b38a40e2bba2be6a4fd18a38179d5f
+    redirect-uri: http://localhost:8888/member/api/auth
+    token-uri: https://kauth.kakao.com/oauth/token
+    secret: ZkcLZF7NVt2h45ip2zXxj6QaRJisKeSu
+
+app-id: #수정해야함
+  kakao: 983681
+  google: ---
+
+jwt:
+  header: Authorization
+  secret: 2a10q42lY7Y18xqrFt1qbODZIO4OMTeOxnrCe7tF3n9bazJinVE7VH5Pi
+  access-token-period: 1800000000000000000  # 30분 (30분 * 60초 * 1000밀리초)
+  refresh-token-period: 1209600000000  # 14일 (14일 * 24시간 * 60분 * 60초 * 1000밀리초)
+  reissue-token-period: 2592000000000  # 3일 (3일 * 24시간 * 60분 * 60초 * 1000밀리초)
+
+

@@ -14,15 +14,17 @@ services:
     networks:
       - msa-network
 
-   member:
-     image: gwangjang/member
-     depends_on:
-        - eureka
-        - apigateway
-     environment:
-          EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
-     ports:
-        - 8083:8083
-     networks:
-        - msa-network
-     build: ./MemberService
+  member:
+    image: gwangjang/member
+    depends_on:
+      - eureka
+      - apigateway
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
+    ports:
+      - 8083:8083
+    networks:
+      - msa-network
+    build: ./MemberService
+networks:
+  msa-network:

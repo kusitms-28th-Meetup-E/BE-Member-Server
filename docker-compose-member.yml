@@ -13,7 +13,6 @@ services:
       - 8761:8761
     networks:
       - msa-network
-
   member:
     image: gwangjang/member
     depends_on:

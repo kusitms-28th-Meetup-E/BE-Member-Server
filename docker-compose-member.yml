@@ -26,3 +26,5 @@ services:
     networks:
       - msa-network
     build: ./MemberService
+networks:
+  msa-network:

@@ -23,4 +23,13 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 .fetchFirst() != null;
     }
 
+    @Override
+    public boolean checkEmail(String email) {
+        return queryFactory
+                .selectOne()
+                .from(member)
+                .where(member.email.eq(email))
+                .fetchFirst() != null;
+    }
+
 }

@@ -16,12 +16,12 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://local.cjdhyv98eoki.ap-northeast-2.rds.amazonaws.com:3306/gwang-jang?autoReconnection=true;sendStringParametersAsUnicode=false?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://gwangjang.cnzf7npwk5iz.ap-northeast-2.rds.amazonaws.com:3306/member?autoReconnection=true;sendStringParametersAsUnicode=false?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
 
     hikari:
       pool-name: jpa-hikari-pool
       maximum-pool-size: 5
-      jdbc-url: jdbc:mysql://local.cjdhyv98eoki.ap-northeast-2.rds.amazonaws.com:3306/gwang-jang?autoReconnection=true;sendStringParametersAsUnicode=false?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      jdbc-url: jdbc:mysql://gwangjang.cnzf7npwk5iz.ap-northeast-2.rds.amazonaws.com:3306/member?autoReconnection=true;sendStringParametersAsUnicode=false?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
       username: admin
       password: helloworld
       driver-class-name: com.mysql.cj.jdbc.Driver
@@ -61,16 +61,6 @@ logging:
   level:
     com.example.memberservice: DEBUG
 
-
-
-greeting:
-  message: Welcome to the Simple E-commerce.
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: refresh, health, beans
 kakao:
   client:
     id: c1b38a40e2bba2be6a4fd18a38179d5f
@@ -89,19 +79,3 @@ jwt:
   refresh-token-period: 1209600000000  # 14일 (14일 * 24시간 * 60분 * 60초 * 1000밀리초)
   reissue-token-period: 2592000000000  # 3일 (3일 * 24시간 * 60분 * 60초 * 1000밀리초)
 
-
-#springdoc:
-#    default-consumes-media-type: application/json
-#    default-produces-media-type: application/json
-#    api-docs:
-#      groups:
-#        enabled: true
-#    swagger-ui:
-#      operations-sorter: alpha # alpha(알파벳 오름차순), method(HTTP메소드순)
-#      tags-sorter: alpha # 태그 정렬 기준
-#      path: /member/swagger-ui.html # html 문서 접속 경로
-#      disable-swagger-default-url: true
-##      display-query-params-without-oauth2: true
-#      doc-expansion: none # tag, operation 펼치는 방식
-#    paths-to-match:
-#      - /**

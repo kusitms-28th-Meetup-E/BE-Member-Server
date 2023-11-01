@@ -23,22 +23,15 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final UserDetailsService userDetailsService;
-    private final PasswordEncoder bCryptPasswordEncoder;
-
     private final MemberGetService memberQueryService;
     private final TokenUtil tokenUtil;
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .requestMatchers(new AntPathRequestMatcher("/h2-console/**"))
-                .requestMatchers(new AntPathRequestMatcher( "/favicon.ico"))
-                .requestMatchers(new AntPathRequestMatcher( "/css/**"))
-                .requestMatchers(new AntPathRequestMatcher( "/js/**"))
-                .requestMatchers(new AntPathRequestMatcher( "/img/**"))
-                .requestMatchers(new AntPathRequestMatcher( "/lib/**"));
-    }
+                .requestMatchers("/resource/**", "/css/**", "/js/**", "/img/**", "/lib/**");
+    };
+//                .requestMatchers(new AntPathRequestMatcher( "/**/*.html"));
 
 
     @Bean
@@ -64,7 +57,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorize -> authorize
                                 .requestMatchers("/auth/**").permitAll()
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
+//                                .requestMatchers("/swagger-ui/index.html").permitAll()
+//                                .requestMatchers("/admin/**").hasRole("ADMIN")
+//                                .requestMatchers("/swagger-ui/**").permitAll()
+//                                .requestMatchers("/swagger-resources/**").permitAll()
+//                                .requestMatchers("/swagger-ui.html").permitAll()
                                 .anyRequest().authenticated()
                 );
 

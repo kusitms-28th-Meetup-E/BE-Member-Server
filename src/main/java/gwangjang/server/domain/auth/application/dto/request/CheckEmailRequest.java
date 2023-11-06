@@ -1,14 +1,12 @@
 package gwangjang.server.domain.auth.application.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
+@Setter
 public class CheckEmailRequest {
     String email;
     String code;

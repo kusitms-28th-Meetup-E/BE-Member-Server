@@ -107,7 +107,7 @@ public class TokenUtil implements InitializingBean {
 
     //refresh token 관련
     public void storeRefreshToken(String socialId, TokenInfoResponse token) {
-//        redisUtil.save(token.getRefreshToken(), socialId);
+        redisUtil.save(token.getRefreshToken(), socialId);
     }
 
     public TokenInfoResponse tokenReissue(String token) {

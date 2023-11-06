@@ -72,6 +72,9 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.4'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'jakarta.mail:jakarta.mail-api:2.1.2'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 
 
 }

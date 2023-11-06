@@ -74,4 +74,5 @@ public class SignUpUserCase {
         return SignInResponse.from(tokenResponse, member.getRegistrationStatus());
     }
 
+
 }

@@ -2,12 +2,12 @@ package gwangjang.server.domain.auth.application.dto.request;
 
 import lombok.*;
 
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Getter
 @Setter
-public class TestRequest {
-    private String socialId;
-
+public class CheckEmailRequest {
+    String email;
+    String code;
 }

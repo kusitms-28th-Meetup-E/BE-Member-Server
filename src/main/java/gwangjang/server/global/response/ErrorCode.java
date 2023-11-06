@@ -23,7 +23,9 @@ public enum ErrorCode {
     TOKEN_INVALID_ERROR("AU0002", "입력 토큰이 유효하지 않습니다."),
     APPID_INVALID_ERROR("AU0003", "appId가 유효하지 않습니다"),
     NICKNAME_DUPLICATION_ERROR("AU0004", "닉네임이 중복됩니다."),
-    EMAIL_DUPLICATION_ERROR("AU0005", "닉네임이 중복됩니다."),
+    EMAIL_DUPLICATION_ERROR("AU0005", "이메일이 중복됩니다."),
+    EMAIL_AUTH_ERROR("AU0005", "이메일이 중복됩니다."),
+
 
     NOT_FOUND_BY_LOGIN_ID_ERROR("L001","해당 id인 유저가 존재하지 않습니다"),
     INCORRECT_PASSWORD("L002","비밀번호가 틀렸습니다");

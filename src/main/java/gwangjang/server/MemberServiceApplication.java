@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @EnableFeignClients
 @SpringBootApplication
 @EnableDiscoveryClient

@@ -24,7 +24,8 @@ import static gwangjang.server.domain.auth.presentation.constant.AuthResponseMes
 @RestController
 @AllArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/auth",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+//@RequestMapping(value = "/auth",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+@RequestMapping("/auth")
 @Slf4j
 public class AuthController {
 
@@ -40,7 +41,7 @@ public class AuthController {
 
 
     @PostMapping("/signIn")
-    public ResponseEntity<SuccessResponse<SignInResponse>> signIn(LocalSignInRequest localSignInRequest) {
+    public ResponseEntity<SuccessResponse<SignInResponse>> signIn(@RequestBody LocalSignInRequest localSignInRequest) {
         return ResponseEntity.ok(SuccessResponse.create(SIGN_IN_SUCCESS.getMessage(), this.authService.localSignIn(localSignInRequest)));
     }
 
@@ -103,7 +104,7 @@ public class AuthController {
     }
 
     @PostMapping("/email")
-    public ResponseEntity<SuccessResponse<CheckEmailResponse>> checkEmailAuth(CheckEmailRequest checkEmailRequest){
+    public ResponseEntity<SuccessResponse<CheckEmailResponse>> checkEmailAuth(@RequestBody CheckEmailRequest checkEmailRequest){
         return ResponseEntity.ok(SuccessResponse.create(CHECK_EMAIL_AUTH_SUCCESS.getMessage(),checkEmailUserCase.checkEmailAuth(checkEmailRequest)));
     }
 

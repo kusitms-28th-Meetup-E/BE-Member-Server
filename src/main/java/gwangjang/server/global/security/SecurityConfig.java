@@ -70,18 +70,18 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-
-        configuration.addAllowedOriginPattern("*");
-        configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("*");
-        configuration.setAllowCredentials(false);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+//    @Bean
+//    public CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//
+//        configuration.addAllowedOriginPattern("*");
+//        configuration.addAllowedHeader("*");
+//        configuration.addAllowedMethod("*");
+//        configuration.setAllowCredentials(false);
+//
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/", configuration);
+//        return source;
+//    }
 
 }

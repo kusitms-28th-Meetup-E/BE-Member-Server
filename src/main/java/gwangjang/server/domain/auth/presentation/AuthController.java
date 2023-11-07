@@ -23,9 +23,9 @@ import static gwangjang.server.domain.auth.presentation.constant.AuthResponseMes
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 //@RequestMapping(value = "/auth",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-@RequestMapping("/auth")
+@RequestMapping(value = "/auth")
 @Slf4j
 public class AuthController {
 
@@ -47,7 +47,7 @@ public class AuthController {
 
     @PostMapping("/signIn/{provider}")
     public ResponseEntity<SuccessResponse<SignInResponse>> socialSignIn(@PathVariable String provider,
-                                                                 SignInRequest signInRequest) {
+                                                                        @RequestBody  SignInRequest signInRequest) {
         return ResponseEntity.ok(SuccessResponse.create(SIGN_IN_SUCCESS.getMessage(), this.authService.signIn(signInRequest.getToken(), provider)));
     }
 
@@ -61,7 +61,7 @@ public class AuthController {
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<SuccessResponse<SignInResponse>> signUp(LocalSignUpRequest signUpRequest) {
+    public ResponseEntity<SuccessResponse<SignInResponse>> signUp(@RequestBody LocalSignUpRequest signUpRequest) {
         return ResponseEntity.ok(SuccessResponse.create(SIGN_UP_SUCCESS.getMessage(), this.signUpService.localSignUp(signUpRequest)));
     }
 
@@ -80,7 +80,7 @@ public class AuthController {
 
     @PostMapping("/test/{provider}")
     public ResponseEntity<SuccessResponse<SignInResponse>> testLogin(@PathVariable String provider,
-                                                                      TestRequest testRequest){
+                                                                     @RequestBody  TestRequest testRequest){
         return ResponseEntity.ok(SuccessResponse.create(SIGN_IN_SUCCESS.getMessage(), this.authService.testSignIn(testRequest.getSocialId(),provider)));
     }
 

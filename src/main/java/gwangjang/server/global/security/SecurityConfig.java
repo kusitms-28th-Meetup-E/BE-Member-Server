@@ -17,6 +17,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -65,10 +67,10 @@ public class SecurityConfig {
                                 .anyRequest().authenticated()
                 );
 
-        http    .apply(new JwtSecurityConfig(tokenUtil, memberQueryService));
+        http.apply(new JwtSecurityConfig(tokenUtil, memberQueryService));
 
         return http.build();
-    }
+
 
 //    @Bean
 //    public CorsConfigurationSource corsConfigurationSource() {
@@ -83,5 +85,18 @@ public class SecurityConfig {
 //        source.registerCorsConfiguration("/", configuration);
 //        return source;
 //    }
+    }
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+            return new WebMvcConfigurer() {
+                @Override
+                public void addCorsMappings(CorsRegistry registry) {
+                    registry.addMapping("/**")
+                            .allowedOrigins("http://localhost:3000")
+                            .allowedMethods("POST", "GET", "PUT", "DELETE", "HEAD", "OPTIONS")
+                            .allowCredentials(true);
+                }
+            };
+        }
 
 }

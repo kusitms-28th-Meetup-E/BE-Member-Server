@@ -10,7 +10,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -26,48 +32,72 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
                 .requestMatchers("/resource/**", "/css/**", "/js/**", "/img/**", "/lib/**");
-    }
+    };
+//                .requestMatchers(new AntPathRequestMatcher( "/**/*.html"));
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+
         http
+                .cors().and()
                 .csrf()
                 .disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http
-                .formLogin().disable()
-                .httpBasic().disable()
-                .exceptionHandling()
+                .formLogin().disable()  //폼 로그인 비활성화
+                .httpBasic().disable()  // HTTP 기본 인증 비활성화
+                .exceptionHandling()    //예외 처리 설정
+//                .authenticationEntryPoint(jwtAuthenticationEntryPoint) //인증되지 않은 사용자가 보호된 리소스에 액세스 할 때 호출되는 JwtAuthenticationEntryPoint 설정
                 .and()
                 .headers().frameOptions().sameOrigin();
+
 
         http
                 .authorizeHttpRequests(
                         authorize -> authorize
                                 .requestMatchers("/auth/**").permitAll()
+//                                .requestMatchers("/swagger-ui/index.html").permitAll()
+//                                .requestMatchers("/admin/**").hasRole("ADMIN")
+//                                .requestMatchers("/swagger-ui/**").permitAll()
+//                                .requestMatchers("/swagger-resources/**").permitAll()
+//                                .requestMatchers("/swagger-ui.html").permitAll()
                                 .anyRequest().authenticated()
                 );
 
         http.apply(new JwtSecurityConfig(tokenUtil, memberQueryService));
 
         return http.build();
+
+
+//    @Bean
+//    public CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//
+//        configuration.addAllowedOriginPattern("*");
+//        configuration.addAllowedHeader("*");
+//        configuration.addAllowedMethod("*");
+//        configuration.setAllowCredentials(false);
+//
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/", configuration);
+//        return source;
+//    }
     }
-
-    // CorsConfigurer 빈은 이미 사용하고 있으므로 CorsConfigurationSource 빈은 주석 처리하거나 삭제합니다.
-    // ...
-
     @Bean
     public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("*")
-                        .allowedMethods("POST", "GET", "PUT", "DELETE", "HEAD", "OPTIONS")
-                        .allowCredentials(true);
-            }
-        };
-    }
+            return new WebMvcConfigurer() {
+                @Override
+                public void addCorsMappings(CorsRegistry registry) {
+                    registry.addMapping("/**")
+                            .allowedOrigins("*")
+                            .allowedMethods("POST", "GET", "PUT", "DELETE", "HEAD", "OPTIONS")
+                            .allowCredentials(true);
+                }
+            };
+        }
+
 }

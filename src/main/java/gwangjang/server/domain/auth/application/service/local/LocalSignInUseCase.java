@@ -2,7 +2,7 @@ package gwangjang.server.domain.auth.application.service.local;
 
 import gwangjang.server.domain.auth.application.service.SignInProvider;
 import gwangjang.server.domain.member.domain.entity.Member;
-import gwangjang.server.domain.member.domain.service.MemberGetService;
+import gwangjang.server.domain.member.domain.service.MemberQueryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class LocalSignInUseCase implements SignInProvider {
 
-    private final MemberGetService memberGetService;
+    private final MemberQueryService memberQueryService;
 
     @Override
     public Member getUserData(String accessToken) {
-        return memberGetService.getMemberByLoginId(accessToken);
+        return memberQueryService.getMemberByLoginId(accessToken);
 
     }
 

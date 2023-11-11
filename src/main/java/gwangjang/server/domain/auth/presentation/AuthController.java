@@ -7,6 +7,8 @@ import gwangjang.server.domain.auth.application.dto.response.ReissueTokenRespons
 import gwangjang.server.domain.auth.application.dto.response.SignInResponse;
 import gwangjang.server.domain.auth.application.service.*;
 import gwangjang.server.domain.auth.application.service.kakao.KakaoTokenUserCase;
+import gwangjang.server.domain.member.adapter.consumer.web.dto.post.MemberDto;
+import gwangjang.server.domain.member.feign.MemberFeignUseCase;
 import gwangjang.server.global.response.SuccessResponse;
 import gwangjang.server.global.security.dto.User;
 import jakarta.validation.Valid;
@@ -107,6 +109,8 @@ public class AuthController {
     public ResponseEntity<SuccessResponse<CheckEmailResponse>> checkEmailAuth( CheckEmailRequest checkEmailRequest){
         return ResponseEntity.ok(SuccessResponse.create(CHECK_EMAIL_AUTH_SUCCESS.getMessage(),checkEmailUserCase.checkEmailAuth(checkEmailRequest)));
     }
+
+
 
 
 }

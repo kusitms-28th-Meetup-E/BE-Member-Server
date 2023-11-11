@@ -1,6 +1,6 @@
 package gwangjang.server.global.security.jwt.service;
 
-import gwangjang.server.domain.member.domain.service.MemberGetService;
+import gwangjang.server.domain.member.domain.service.MemberQueryService;
 //import gwangjang.server.global.security.filter.JwtAuthFilter;
 import gwangjang.server.global.security.filter.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
 
     private final TokenUtil tokenUtil;
 
-    private final MemberGetService memberQueryService;
+    private final MemberQueryService memberQueryService;
 
     @Override
     public void configure(HttpSecurity http) {

@@ -25,7 +25,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .requestMatchers("/resource/**", "/css/**", "/js/**", "/img/**", "/lib/**");
+                .requestMatchers("/resource/**", "/css/**", "/js/**", "/img/**", "/lib/**", "/**");
     };
 //                .requestMatchers(new AntPathRequestMatcher( "/**/*.html"));
 
@@ -53,6 +53,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorize -> authorize
                                 .requestMatchers("/auth/**").permitAll()
+
+
 //                                .requestMatchers("/swagger-ui/index.html").permitAll()
 //                                .requestMatchers("/admin/**").hasRole("ADMIN")
 //                                .requestMatchers("/swagger-ui/**").permitAll()
@@ -64,33 +66,6 @@ public class SecurityConfig {
         http.apply(new JwtSecurityConfig(tokenUtil, memberQueryService));
 
         return http.build();
-
-
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//
-//        configuration.addAllowedOriginPattern("*");
-//        configuration.addAllowedHeader("*");
-//        configuration.addAllowedMethod("*");
-//        configuration.setAllowCredentials(false);
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/", configuration);
-//        return source;
-//    }
     }
-//    @Bean
-//    public WebMvcConfigurer corsConfigurer() {
-//            return new WebMvcConfigurer() {
-//                @Override
-//                public void addCorsMappings(CorsRegistry registry) {
-//                    registry.addMapping("/**")
-//                            .allowedOrigins("http://localhost:5173")
-//                            .allowedMethods("POST", "GET", "PUT", "DELETE", "HEAD", "OPTIONS")
-//                            .allowCredentials(true);
-//                }
-//            };
-//        }
 
 }

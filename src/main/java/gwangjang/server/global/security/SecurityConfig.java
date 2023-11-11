@@ -52,7 +52,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/**").permitAll()
 
 
 //                                .requestMatchers("/swagger-ui/index.html").permitAll()

@@ -1,6 +1,6 @@
 package gwangjang.server.global.security.filter;
 
-import gwangjang.server.domain.member.domain.service.MemberGetService;
+import gwangjang.server.domain.member.domain.service.MemberQueryService;
 import gwangjang.server.global.security.jwt.service.TokenUtil;
 import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.global.utils.AuthenticationUtil;
@@ -26,7 +26,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
     private final TokenUtil tokenUtil;
-    private final MemberGetService memberQueryService;
+    private final MemberQueryService memberQueryService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException, JwtException {

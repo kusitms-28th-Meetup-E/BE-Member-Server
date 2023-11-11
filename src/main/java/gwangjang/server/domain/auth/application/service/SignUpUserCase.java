@@ -1,6 +1,5 @@
 package gwangjang.server.domain.auth.application.service;
 
-import gwangjang.server.domain.auth.application.dto.request.LocalSignInRequest;
 import gwangjang.server.domain.auth.application.dto.request.LocalSignUpRequest;
 import gwangjang.server.domain.auth.application.dto.request.SignUpRequest;
 import gwangjang.server.domain.auth.application.dto.response.SignInResponse;
@@ -12,7 +11,7 @@ import gwangjang.server.global.security.jwt.service.TokenUtil;
 import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.domain.member.domain.entity.constant.RegistrationStatus;
 import gwangjang.server.domain.member.domain.service.MemberCheckService;
-import gwangjang.server.domain.member.domain.service.MemberGetService;
+import gwangjang.server.domain.member.domain.service.MemberQueryService;
 import gwangjang.server.global.response.TokenInfoResponse;
 import gwangjang.server.global.utils.AuthenticationUtil;
 import jakarta.transaction.Transactional;
@@ -26,7 +25,7 @@ import org.springframework.stereotype.Service;
 public class SignUpUserCase {
 
     private final TokenUtil tokenUtil;
-    private final MemberGetService memberGetService;
+    private final MemberQueryService memberQueryService;
     private final MemberSaveService memberSaveService;
     private final MemberCheckService memberCheckService;
     private final MemberMapper memberMapper;
@@ -36,7 +35,7 @@ public class SignUpUserCase {
 
        //1. 유저 찾기 -> 소셜 로그인 || 로컬 로그인 모두 이미 member 객체 있음
         String socialId = tokenUtil.getSocialId(token);
-        Member member = memberGetService.getMemberBySocialId(socialId);
+        Member member = memberQueryService.getMemberBySocialId(socialId);
         //2. signUp 처리
         String nickName=signUpRequest.getNickName();
         if(memberCheckService.checkNickname(nickName)) throw new NicknameDuplicationException(); //닉네임 중복검사 (이중체크)

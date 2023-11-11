@@ -52,6 +52,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(
                         authorize -> authorize
+
                                 .requestMatchers("/**").permitAll()
 
 

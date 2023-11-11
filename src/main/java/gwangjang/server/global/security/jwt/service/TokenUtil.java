@@ -1,6 +1,6 @@
 package gwangjang.server.global.security.jwt.service;
 
-import gwangjang.server.domain.member.domain.service.MemberGetService;
+import gwangjang.server.domain.member.domain.service.MemberQueryService;
 import gwangjang.server.global.security.jwt.exception.NotFoundRefreshToken;
 import gwangjang.server.global.security.jwt.redis.RedisUtil;
 import gwangjang.server.domain.member.domain.entity.Member;
@@ -16,8 +16,6 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @Component
@@ -26,7 +24,7 @@ public class TokenUtil implements InitializingBean {
 
     private static final String ADDITIONAL_INFO = "isAdditionalInfoProvided";
     private final RedisUtil redisUtil;
-    private final MemberGetService memberQueryService;
+    private final MemberQueryService memberQueryService;
 
     @Value("${jwt.secret}")
     private String secretKey;

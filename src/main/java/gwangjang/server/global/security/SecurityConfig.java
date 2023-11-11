@@ -1,6 +1,6 @@
 package gwangjang.server.global.security;
 
-import gwangjang.server.domain.member.domain.service.MemberGetService;
+import gwangjang.server.domain.member.domain.service.MemberQueryService;
 import gwangjang.server.global.security.jwt.service.JwtSecurityConfig;
 import gwangjang.server.global.security.jwt.service.TokenUtil;
 import lombok.RequiredArgsConstructor;
@@ -10,13 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -25,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final MemberGetService memberQueryService;
+    private final MemberQueryService memberQueryService;
     private final TokenUtil tokenUtil;
 
     @Bean
@@ -58,7 +52,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                .requestMatchers("/auth/**").permitAll()
+
+                                .requestMatchers("/**").permitAll()
 
 
 //                                .requestMatchers("/swagger-ui/index.html").permitAll()
@@ -72,33 +67,6 @@ public class SecurityConfig {
         http.apply(new JwtSecurityConfig(tokenUtil, memberQueryService));
 
         return http.build();
-
-
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//
-//        configuration.addAllowedOriginPattern("*");
-//        configuration.addAllowedHeader("*");
-//        configuration.addAllowedMethod("*");
-//        configuration.setAllowCredentials(false);
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/", configuration);
-//        return source;
-//    }
     }
-//    @Bean
-//    public WebMvcConfigurer corsConfigurer() {
-//            return new WebMvcConfigurer() {
-//                @Override
-//                public void addCorsMappings(CorsRegistry registry) {
-//                    registry.addMapping("/**")
-//                            .allowedOrigins("http://localhost:3000")
-//                            .allowedMethods("POST", "GET", "PUT", "DELETE", "HEAD", "OPTIONS")
-//                            .allowCredentials(true);
-//                }
-//            };
-//        }
 
 }

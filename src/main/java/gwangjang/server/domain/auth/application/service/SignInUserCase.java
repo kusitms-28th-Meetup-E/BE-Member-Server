@@ -3,11 +3,10 @@ package gwangjang.server.domain.auth.application.service;
 import gwangjang.server.domain.auth.application.dto.request.LocalSignInRequest;
 import gwangjang.server.domain.auth.application.dto.response.SignInResponse;
 import gwangjang.server.domain.auth.exception.InCorrectPasswordException;
-import gwangjang.server.domain.member.domain.entity.constant.SocialProvider;
 import gwangjang.server.global.security.jwt.service.TokenUtil;
 import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.domain.member.domain.entity.constant.RegistrationStatus;
-import gwangjang.server.domain.member.domain.service.MemberGetService;
+import gwangjang.server.domain.member.domain.service.MemberQueryService;
 import gwangjang.server.global.response.TokenInfoResponse;
 import gwangjang.server.global.utils.AuthenticationUtil;
 import jakarta.transaction.Transactional;
@@ -25,7 +24,7 @@ public class SignInUserCase {
     private final MemberAuthUserCase internalAuthService;
     private final TokenUtil tokenUtil;
     private final Map<String, SignInProvider> signInProviders;
-    private final MemberGetService memberGetService;
+    private final MemberQueryService memberQueryService;
 
 
     public SignInResponse signIn(String authToken, String providerInfo) {
@@ -68,7 +67,7 @@ public class SignInUserCase {
     public SignInResponse testSignIn(String socialId, String providerInfo) {
         log.info("test sign in start ");
         //1. 사용자 정보 가져오기
-        Member member = memberGetService.getMemberBySocialId(socialId);
+        Member member = memberQueryService.getMemberBySocialId(socialId);
         //2. 로그인
         Member authenticatedMember = internalAuthService.auth(member, providerInfo);
         //3. security 처리
@@ -85,7 +84,7 @@ public class SignInUserCase {
 
     public SignInResponse localSignIn(LocalSignInRequest localSignInRequest) {
 
-        Member member = memberGetService.getMemberByLoginId(localSignInRequest.getId());
+        Member member = memberQueryService.getMemberByLoginId(localSignInRequest.getId());
         if (!member.login(localSignInRequest.getPw())) {
             throw new InCorrectPasswordException();
         }

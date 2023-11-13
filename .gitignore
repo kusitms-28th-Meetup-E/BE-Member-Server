@@ -42,3 +42,4 @@ build/resources/main/application.yml
 build/tmp/compileJava/previous-compilation-data.bin
 src/main/resources/application.yml
 
+src/main/generated

@@ -20,8 +20,6 @@ import static gwangjang.server.domain.auth.presentation.constant.AuthResponseMes
 
 @RestController
 @AllArgsConstructor
-//@CrossOrigin(origins = "*")
-//@RequestMapping(value = "/auth",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 @RequestMapping(value = "/auth")
 @Slf4j
 public class MemberController {

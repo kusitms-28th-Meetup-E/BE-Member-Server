@@ -11,19 +11,15 @@ import gwangjang.server.global.response.SuccessResponse;
 import gwangjang.server.global.security.dto.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
 
 import static gwangjang.server.domain.auth.presentation.constant.AuthResponseMessage.*;
 
 @RestController
 @AllArgsConstructor
-//@CrossOrigin(origins = "*")
-@RequestMapping(value = "/auth",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-//@RequestMapping(value = "/auth")
+@RequestMapping(value = "/auth")
 @Slf4j
 public class AuthController {
 
@@ -39,13 +35,13 @@ public class AuthController {
 
 
     @PostMapping("/signIn")
-    public ResponseEntity<SuccessResponse<SignInResponse>> signIn(LocalSignInRequest localSignInRequest) {
+    public ResponseEntity<SuccessResponse<SignInResponse>> signIn(@RequestBody LocalSignInRequest localSignInRequest) {
         return ResponseEntity.ok(SuccessResponse.create(SIGN_IN_SUCCESS.getMessage(), this.authService.localSignIn(localSignInRequest)));
     }
 
     @PostMapping("/signIn/{provider}")
     public ResponseEntity<SuccessResponse<SignInResponse>> socialSignIn(@PathVariable String provider,
-                                                                        SignInRequest signInRequest) {
+                                                                        @RequestBody  SignInRequest signInRequest) {
         return ResponseEntity.ok(SuccessResponse.create(SIGN_IN_SUCCESS.getMessage(), this.authService.signIn(signInRequest.getToken(), provider)));
     }
 
@@ -59,7 +55,7 @@ public class AuthController {
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<SuccessResponse<SignInResponse>> signUp( LocalSignUpRequest signUpRequest) {
+    public ResponseEntity<SuccessResponse<SignInResponse>> signUp(@RequestBody LocalSignUpRequest signUpRequest) {
         return ResponseEntity.ok(SuccessResponse.create(SIGN_UP_SUCCESS.getMessage(), this.signUpService.localSignUp(signUpRequest)));
     }
 
@@ -78,7 +74,7 @@ public class AuthController {
 
     @PostMapping("/test/{provider}")
     public ResponseEntity<SuccessResponse<SignInResponse>> testLogin(@PathVariable String provider,
-                                                                     TestRequest testRequest){
+                                                                     @RequestBody  TestRequest testRequest){
         return ResponseEntity.ok(SuccessResponse.create(SIGN_IN_SUCCESS.getMessage(), this.authService.testSignIn(testRequest.getSocialId(),provider)));
     }
 
@@ -102,11 +98,9 @@ public class AuthController {
     }
 
     @PostMapping("/email")
-    public ResponseEntity<SuccessResponse<CheckEmailResponse>> checkEmailAuth( CheckEmailRequest checkEmailRequest){
+    public ResponseEntity<SuccessResponse<CheckEmailResponse>> checkEmailAuth(@RequestBody CheckEmailRequest checkEmailRequest){
         return ResponseEntity.ok(SuccessResponse.create(CHECK_EMAIL_AUTH_SUCCESS.getMessage(),checkEmailUserCase.checkEmailAuth(checkEmailRequest)));
     }
-
-
 
 
 }

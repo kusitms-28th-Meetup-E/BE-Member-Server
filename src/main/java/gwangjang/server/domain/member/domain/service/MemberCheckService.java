@@ -16,8 +16,10 @@ public class MemberCheckService {
         return memberRepository.checkNickname(nickname);
     }
     public boolean checkEmail(String email) {
-        log.info("checkEmail done");
         return memberRepository.checkEmail(email);
+    }
+    public boolean checkLoginId(String loginId) {
+        return memberRepository.checkLoginId(loginId);
     }
 
 }

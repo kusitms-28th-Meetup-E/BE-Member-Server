@@ -31,5 +31,13 @@ public class MemberCustomRepositoryImpl implements MemberCustomRepository {
                 .where(member.email.eq(email))
                 .fetchFirst() != null;
     }
+    @Override
+    public boolean checkLoginId(String loginId) {
+        return queryFactory
+                .selectOne()
+                .from(member)
+                .where(member.loginId.eq(loginId))
+                .fetchFirst() != null;
+    }
 
 }

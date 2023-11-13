@@ -54,12 +54,8 @@ public class Member {
     private String birth;
     private String gender;
 
-    public void tempSignUp() {
-        this.registrationStatus = RegistrationStatus.COMPLETED;
-    }
-
     public void signUp(SignUpRequest signUpRequest) {
-        this.nickname = signUpRequest.getNickName();
+        this.nickname = signUpRequest.getNickname();
         this.registrationStatus = RegistrationStatus.COMPLETED;
     }
 

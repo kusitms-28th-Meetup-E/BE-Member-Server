@@ -1,4 +1,4 @@
-package gwangjang.server.domain.member.feign;
+package gwangjang.server.global.feign;
 
 import gwangjang.server.domain.auth.application.mapper.MemberMapper;
 import gwangjang.server.domain.member.adapter.consumer.web.dto.post.MemberDto;

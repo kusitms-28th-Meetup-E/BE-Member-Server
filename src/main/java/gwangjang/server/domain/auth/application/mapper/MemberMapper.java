@@ -34,6 +34,11 @@ public class MemberMapper {
                 .email(localSignUpRequest.getEmail())
                 .role(Role.USER)
                 .registrationStatus(RegistrationStatus.COMPLETED)
+                .birth(localSignUpRequest.getBirthDate())
+                .nickname(localSignUpRequest.getNickname())
+                .gender(localSignUpRequest.getGender())
+                .loginId(localSignUpRequest.getId())
+                .loginPw(localSignUpRequest.getPw())
                 .build();
     }
 

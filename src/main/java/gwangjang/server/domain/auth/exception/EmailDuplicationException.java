@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 
 public class EmailDuplicationException extends AuthException {
     public EmailDuplicationException(){
-        super(ErrorCode.NICKNAME_DUPLICATION_ERROR,
+        super(ErrorCode.EMAIL_DUPLICATION_ERROR,
                 HttpStatus.BAD_REQUEST);
     }
 }

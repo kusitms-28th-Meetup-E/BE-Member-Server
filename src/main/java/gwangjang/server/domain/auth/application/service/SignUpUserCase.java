@@ -37,7 +37,7 @@ public class SignUpUserCase {
         String socialId = tokenUtil.getSocialId(token);
         Member member = memberQueryService.getMemberBySocialId(socialId);
         //2. signUp 처리
-        String nickName=signUpRequest.getNickName();
+        String nickName=signUpRequest.getNickname();
         if(memberCheckService.checkNickname(nickName)) throw new NicknameDuplicationException(); //닉네임 중복검사 (이중체크)
         member.signUp(signUpRequest);
         //3. security 처리

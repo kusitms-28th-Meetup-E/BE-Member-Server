@@ -49,7 +49,7 @@ public class AuthController {
     @PutMapping("/signUp/{provider}")
     public ResponseEntity<SuccessResponse<SignInResponse>> socialSignUp(@PathVariable String provider,
                                                                         @RequestHeader(value = "Authorization") String token,
-                                                                     SignUpRequest signUpRequest) {
+                                                                     @RequestBody SignUpRequest signUpRequest) {
         token = (token != null && token.startsWith("Bearer ")) ? token.substring(7) : token;
         return ResponseEntity.ok(SuccessResponse.create(SIGN_UP_SUCCESS.getMessage(), this.signUpService.signUp(token, signUpRequest)));
     }

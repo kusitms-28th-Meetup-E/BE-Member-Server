@@ -14,7 +14,7 @@ import lombok.*;
 public class SignUpRequest {
 
 
-    private String nickName;
+    private String nickname;
 
     private String gender;
 

@@ -20,7 +20,6 @@ public class MemberAuthUserCase {
     public Member auth(Member member, String providerInfo) {
         Member signInMember = memberSaveService.saveMember(member);
         checkRegistration(signInMember, providerInfo);
-        member.tempSignUp();
         return signInMember;
     }
 

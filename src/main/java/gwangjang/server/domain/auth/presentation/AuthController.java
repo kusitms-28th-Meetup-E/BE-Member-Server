@@ -1,10 +1,7 @@
 package gwangjang.server.domain.auth.presentation;
 
 import gwangjang.server.domain.auth.application.dto.request.*;
-import gwangjang.server.domain.auth.application.dto.response.CheckEmailResponse;
-import gwangjang.server.domain.auth.application.dto.response.CheckNicknameResponse;
-import gwangjang.server.domain.auth.application.dto.response.ReissueTokenResponse;
-import gwangjang.server.domain.auth.application.dto.response.SignInResponse;
+import gwangjang.server.domain.auth.application.dto.response.*;
 import gwangjang.server.domain.auth.application.service.*;
 import gwangjang.server.domain.auth.application.service.kakao.KakaoTokenUserCase;
 import gwangjang.server.global.response.SuccessResponse;
@@ -31,7 +28,7 @@ public class AuthController {
     private final CheckNicknameUserCase checkNicknameService;
     private final KakaoTokenUserCase kakaoTokenUserCase;
     private final CheckEmailUserCase checkEmailUserCase;
-
+    private final CheckLoginIdUseCase checkLoginIdUseCase;
 
 
     @PostMapping("/signIn")
@@ -41,7 +38,7 @@ public class AuthController {
 
     @PostMapping("/signIn/{provider}")
     public ResponseEntity<SuccessResponse<SignInResponse>> socialSignIn(@PathVariable String provider,
-                                                                        @RequestBody  SignInRequest signInRequest) {
+                                                                        @RequestBody SignInRequest signInRequest) {
         return ResponseEntity.ok(SuccessResponse.create(SIGN_IN_SUCCESS.getMessage(), this.authService.signIn(signInRequest.getToken(), provider)));
     }
 
@@ -49,7 +46,7 @@ public class AuthController {
     @PutMapping("/signUp/{provider}")
     public ResponseEntity<SuccessResponse<SignInResponse>> socialSignUp(@PathVariable String provider,
                                                                         @RequestHeader(value = "Authorization") String token,
-                                                                     @RequestBody SignUpRequest signUpRequest) {
+                                                                        @RequestBody SignUpRequest signUpRequest) {
         token = (token != null && token.startsWith("Bearer ")) ? token.substring(7) : token;
         return ResponseEntity.ok(SuccessResponse.create(SIGN_UP_SUCCESS.getMessage(), this.signUpService.signUp(token, signUpRequest)));
     }
@@ -67,40 +64,35 @@ public class AuthController {
 
 
     @GetMapping("/nickname/{nickname}")
-    public ResponseEntity<SuccessResponse<CheckNicknameResponse>> checkNickname(@PathVariable String nickname){
+    public ResponseEntity<SuccessResponse<CheckNicknameResponse>> checkNickname(@PathVariable String nickname) {
         return ResponseEntity.ok(SuccessResponse.create(CHECK_NICKNAME_SUCCESS.getMessage(), checkNicknameService.checkNickname(nickname)));
     }
 
 
     @PostMapping("/test/{provider}")
     public ResponseEntity<SuccessResponse<SignInResponse>> testLogin(@PathVariable String provider,
-                                                                     @RequestBody  TestRequest testRequest){
-        return ResponseEntity.ok(SuccessResponse.create(SIGN_IN_SUCCESS.getMessage(), this.authService.testSignIn(testRequest.getSocialId(),provider)));
-    }
-
-    @PostMapping("/test/hi")
-    public ResponseEntity<SuccessResponse<String>> test(@AuthenticationPrincipal User user){
-
-        log.info("/test/hi -> start ");
-        log.info(user.getEmail());
-        return ResponseEntity.ok(SuccessResponse.create(SIGN_IN_SUCCESS.getMessage(),user.getEmail()));
+                                                                     @RequestBody TestRequest testRequest) {
+        return ResponseEntity.ok(SuccessResponse.create(SIGN_IN_SUCCESS.getMessage(), this.authService.testSignIn(testRequest.getSocialId(), provider)));
     }
 
     @GetMapping("/oauth/kakao")
-    public ResponseEntity<SuccessResponse<String>> kakaoCallBack(@RequestParam String code){
+    public ResponseEntity<SuccessResponse<String>> kakaoCallBack(@RequestParam String code) {
         log.info("/oauth/kakao redirect success");
-        return ResponseEntity.ok(SuccessResponse.create(KAKAO_CALL_BACK_SUCCESS.getMessage(),kakaoTokenUserCase.getAccessToken(code).getAccess_token()));
+        return ResponseEntity.ok(SuccessResponse.create(KAKAO_CALL_BACK_SUCCESS.getMessage(), kakaoTokenUserCase.getAccessToken(code).getAccess_token()));
     }
 
     @PostMapping("/email/{email}")
-    public ResponseEntity<SuccessResponse<CheckEmailResponse>> sendEmailAuth(@PathVariable String email){
-        return ResponseEntity.ok(SuccessResponse.create(CHECK_EMAIL_SUCCESS.getMessage(),checkEmailUserCase.requestEmail(email)));
+    public ResponseEntity<SuccessResponse<CheckEmailResponse>> sendEmailAuth(@PathVariable String email) {
+        return ResponseEntity.ok(SuccessResponse.create(CHECK_EMAIL_SUCCESS.getMessage(), checkEmailUserCase.requestEmail(email)));
     }
 
     @PostMapping("/email")
-    public ResponseEntity<SuccessResponse<CheckEmailResponse>> checkEmailAuth(@RequestBody CheckEmailRequest checkEmailRequest){
-        return ResponseEntity.ok(SuccessResponse.create(CHECK_EMAIL_AUTH_SUCCESS.getMessage(),checkEmailUserCase.checkEmailAuth(checkEmailRequest)));
+    public ResponseEntity<SuccessResponse<CheckEmailResponse>> checkEmailAuth(@RequestBody CheckEmailRequest checkEmailRequest) {
+        return ResponseEntity.ok(SuccessResponse.create(CHECK_EMAIL_AUTH_SUCCESS.getMessage(), checkEmailUserCase.checkEmailAuth(checkEmailRequest)));
     }
 
-
+    @GetMapping("/loginId/{loginId}")
+    public ResponseEntity<SuccessResponse<CheckLoginIdResponse>> sendIdDuplicate(@PathVariable String loginId) {
+        return ResponseEntity.ok(SuccessResponse.create(CHECK_LOGINID_SUCCESS.getMessage(), checkLoginIdUseCase.checkLoginId(loginId)));
+    }
 }

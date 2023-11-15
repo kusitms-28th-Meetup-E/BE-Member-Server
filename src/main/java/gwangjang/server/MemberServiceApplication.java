@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @EnableFeignClients
 @SpringBootApplication
 @EnableDiscoveryClient
-//@EnableJpaAuditing
+@EnableJpaAuditing
 public class MemberServiceApplication {
 
     public static void main(String[] args) {

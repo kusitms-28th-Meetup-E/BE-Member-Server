@@ -1,0 +1,66 @@
+package gwangjang.server.domain.subscribe.domain.repository;
+
+import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import gwangjang.server.domain.member.domain.entity.Member;
+import gwangjang.server.domain.member.domain.entity.QMember;
+import gwangjang.server.domain.subscribe.application.dto.res.SubscribeMemberDto;
+import gwangjang.server.domain.subscribe.application.dto.res.SubscribeRes;
+import gwangjang.server.domain.subscribe.domain.entity.Subscribe;
+import jakarta.persistence.EntityManager;
+
+import java.util.List;
+
+import static gwangjang.server.domain.subscribe.domain.entity.QSubscribe.subscribe;
+
+public class SubscribeCustomRepositoryImpl implements SubscribeCustomRepository {
+
+    private final JPAQueryFactory queryFactory;
+
+    public SubscribeCustomRepositoryImpl(EntityManager em) {
+        this.queryFactory = new JPAQueryFactory(em);
+    }
+
+
+    public SubscribeMemberDto findAllSubscribeByMember(Member member) {
+        // 서브쿼리로 Member와 관련된 모든 Subscribe 가져오기
+        List<SubscribeRes> subscribeResList = queryFactory
+                .select(Projections.fields(SubscribeRes.class,
+                        subscribe.topic,
+                        subscribe.issue
+                ))
+                .from(subscribe)
+                .where(subscribe.member.eq(member))
+                .fetch();
+
+        // 메인 쿼리로 SubscribeMemberDto 가져오기
+        return queryFactory
+                .select(Projections.constructor(SubscribeMemberDto.class,
+                        QMember.member.nickname,
+                        QMember.member.profileImage,
+                        Expressions.constant(subscribeResList) // subscribeResList 추가
+                ))
+                .from(QMember.member)
+                .where(QMember.member.eq(member))
+                .fetchOne();
+    }
+
+    public Subscribe findSubscribeByMemberAndTopic(Member member, String topic, String issue) {
+        return queryFactory
+                .select(subscribe)
+                .from(subscribe)
+                .where(subscribe.member.eq(member),
+                        subscribe.topic.eq(topic),
+                        subscribe.issue.eq(issue)
+                ).fetchOne();
+    }
+
+
+    public boolean findCountSubscribeByMember(Member member) {
+        return queryFactory
+                .selectFrom(subscribe)
+                .where(subscribe.member.eq(member))
+                .fetch().size() < 4;
+    }
+}

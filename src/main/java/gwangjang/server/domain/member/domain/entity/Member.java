@@ -5,6 +5,7 @@ import gwangjang.server.domain.member.domain.entity.constant.Gender;
 import gwangjang.server.domain.member.domain.entity.constant.RegistrationStatus;
 import gwangjang.server.domain.member.domain.entity.constant.Role;
 import gwangjang.server.domain.member.domain.entity.constant.SocialProvider;
+import gwangjang.server.domain.subscribe.domain.entity.Subscribe;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +14,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -53,6 +56,9 @@ public class Member {
 
     private String birth;
     private String gender;
+
+    @OneToMany
+    private List<Subscribe> subscribeList = new ArrayList<>();
 
     public void signUp(SignUpRequest signUpRequest) {
         this.nickname = signUpRequest.getNickname();

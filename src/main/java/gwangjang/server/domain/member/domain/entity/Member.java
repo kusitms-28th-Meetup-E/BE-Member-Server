@@ -56,6 +56,8 @@ public class Member {
 
     public void signUp(SignUpRequest signUpRequest) {
         this.nickname = signUpRequest.getNickname();
+        this.birth = signUpRequest.getBirthDate();
+        this.gender = signUpRequest.getGender();
         this.registrationStatus = RegistrationStatus.COMPLETED;
     }
 

@@ -1,7 +1,6 @@
 package gwangjang.server.domain.auth.application.mapper;
 
 import gwangjang.server.domain.auth.application.dto.request.LocalSignUpRequest;
-import gwangjang.server.domain.auth.application.dto.response.GoogleUserResponse;
 import gwangjang.server.domain.auth.application.dto.response.KakaoUserResponse;
 import gwangjang.server.domain.member.adapter.consumer.web.dto.post.MemberDto;
 import gwangjang.server.domain.member.domain.entity.Member;
@@ -20,6 +19,7 @@ public class MemberMapper {
                 .socialId(SocialProvider.KAKAO + "-" + kakaoUserResponse.getId())
                 .provider(SocialProvider.KAKAO)
                 .email(kakaoUserResponse.getKakaoAccount().getEmail())
+                .profileImage(kakaoUserResponse.getKakaoAccount().getProfile().getProfile_image_url())
                 .role(Role.USER)
                 .registrationStatus(RegistrationStatus.UNCOMPLETED)
                 .build();

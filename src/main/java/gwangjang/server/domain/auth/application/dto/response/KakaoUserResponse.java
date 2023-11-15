@@ -27,6 +27,17 @@ public class KakaoUserResponse {
     @AllArgsConstructor
     public static class KakaoAccount {
         private String email;
+        private Profile profile;
+    }
+
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Profile {
+        private String nickname;
+        private String profile_image_url;
+        private String thumbnail_image_url;
+        private boolean is_default_image;
     }
 
     public void adaptResponse() {

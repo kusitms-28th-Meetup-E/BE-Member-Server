@@ -69,8 +69,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     // Feign
-    implementation 'io.github.openfeign:feign-httpclient:12.1'
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.4'
+    implementation 'io.github.openfeign:feign-httpclient:12.3'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.4'
+
 
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'jakarta.mail:jakarta.mail-api:2.1.2'
@@ -78,6 +79,8 @@ dependencies {
 
 
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-stream-binder-kafka', version: '3.2.1'
+
+
 
 
 }

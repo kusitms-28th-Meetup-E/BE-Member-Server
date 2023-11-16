@@ -1,21 +1,20 @@
 package gwangjang.server.domain.subscribe.domain.service;
 
+import gwangjang.server.domain.FindKeywordFeignClient;
 import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.domain.subscribe.application.dto.res.SubscribeMemberDto;
 import gwangjang.server.domain.subscribe.domain.entity.Subscribe;
 import gwangjang.server.domain.subscribe.domain.repository.SubscribeRepository;
-import gwangjang.server.global.feign.client.FindIssueFeignClient;
+import gwangjang.server.global.annotation.DomainService;
 import gwangjang.server.global.feign.dto.response.IssueDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
-//@DomainService
-@Service
+@DomainService
 @RequiredArgsConstructor
 public class SubscribeQueryService {
 
     private final SubscribeRepository subscribeRepository;
-//    private final FindIssueFeignClient findIssueFeignClient;
+    private final FindKeywordFeignClient findKeywordFeignClient;
 
     public SubscribeMemberDto subscribeListByMember(Member member) {
         SubscribeMemberDto subscribeMemberDto = subscribeRepository.findAllSubscribeByMember(member);
@@ -23,9 +22,8 @@ public class SubscribeQueryService {
                 subscribeMyPageRes ->
                 {
                     Long issueId = subscribeMyPageRes.getIssueId();
-//                    IssueDto issueDto = findIssueFeignClient.getIssueByIssueId(issueId);
-//                    subscribeMyPageRes.updateNames(issueDto);
-
+                    IssueDto issueDto = findKeywordFeignClient.getIssueByIssueId(issueId);
+                    subscribeMyPageRes.updateNames(issueDto);
                 }
         );
 

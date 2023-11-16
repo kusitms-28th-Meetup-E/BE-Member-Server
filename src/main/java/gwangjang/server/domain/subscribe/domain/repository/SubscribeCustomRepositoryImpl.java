@@ -7,13 +7,14 @@ import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.domain.member.domain.entity.QMember;
 import gwangjang.server.domain.subscribe.application.dto.res.SubscribeMemberDto;
 import gwangjang.server.domain.subscribe.application.dto.res.SubscribeMyPageRes;
-import gwangjang.server.domain.subscribe.application.dto.res.SubscribeRes;
 import gwangjang.server.domain.subscribe.domain.entity.Subscribe;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
+import static gwangjang.server.domain.member.domain.entity.QMember.*;
 import static gwangjang.server.domain.subscribe.domain.entity.QSubscribe.subscribe;
+
 
 public class SubscribeCustomRepositoryImpl implements SubscribeCustomRepository {
 

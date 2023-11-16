@@ -8,7 +8,6 @@ import gwangjang.server.domain.subscribe.domain.entity.Subscribe;
 import gwangjang.server.domain.subscribe.domain.service.SubscribeDeleteService;
 import gwangjang.server.domain.subscribe.domain.service.SubscribeQueryService;
 import gwangjang.server.global.annotation.DomainService;
-import gwangjang.server.global.feign.client.FindIssueFeignClient;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -10,7 +10,6 @@ import gwangjang.server.domain.subscribe.domain.service.SubscribeQueryService;
 import gwangjang.server.domain.subscribe.domain.service.SubscribeSaveService;
 import gwangjang.server.domain.subscribe.exception.NoAccessSubscribe;
 import gwangjang.server.global.annotation.DomainService;
-import gwangjang.server.global.feign.client.FindIssueFeignClient;
 import gwangjang.server.global.feign.dto.response.IssueDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

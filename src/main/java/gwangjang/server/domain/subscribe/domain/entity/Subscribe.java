@@ -23,7 +23,5 @@ public class Subscribe extends BaseEntity {
     @ManyToOne
     private Member member;
 
-    private String issue;
-    private String topic;
-
+    private Long issueId;
 }

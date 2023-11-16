@@ -1,6 +1,6 @@
 package gwangjang.server.domain.member.presentation;
 
-import gwangjang.server.domain.member.adapter.consumer.web.dto.post.MemberDto;
+import gwangjang.server.global.feign.dto.response.MemberDto;
 import gwangjang.server.global.feign.MemberFeignUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

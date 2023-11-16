@@ -10,6 +10,8 @@ import gwangjang.server.domain.subscribe.domain.service.SubscribeQueryService;
 import gwangjang.server.domain.subscribe.domain.service.SubscribeSaveService;
 import gwangjang.server.domain.subscribe.exception.NoAccessSubscribe;
 import gwangjang.server.global.annotation.DomainService;
+import gwangjang.server.global.feign.client.FindIssueFeignClient;
+import gwangjang.server.global.feign.dto.response.IssueDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,11 +30,11 @@ public class SubscribeUseCase {
 
     private final SubscribeMapper subscribeMapper = new SubscribeMapper();
 
-    public SubscribeRes subscribe(String socialId, String topic, String issue) {
+    public SubscribeRes subscribe(String socialId,Long topicId, Long issueId) {
         Member member = memberQueryService.getMemberBySocialId(socialId);
 
         if (subscribeQueryService.isAbleToSubscribe(member)) {
-            Subscribe save = subscribeSaveService.save(subscribeMapper.mapToSubscribe(member, topic, issue));
+            Subscribe save = subscribeSaveService.save(subscribeMapper.mapToSubscribe(member, issueId));
             return subscribeMapper.mapToSubscribeRes(save).setSubscribe();
 
         }else{
@@ -41,9 +43,13 @@ public class SubscribeUseCase {
 
     }
 
+    // 마이페이지에 보여줄 내 구독 목록 & contentService와 feign 통신 .
     public SubscribeMemberDto getAllSubscribeByMember(String socialId) {
         Member member = memberQueryService.getMemberBySocialId(socialId);
         return subscribeQueryService.subscribeListByMember(member);
+
     }
+
+
 
 }

@@ -11,8 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SubscribeRes {
 
-    private String topic;
-    private String issue;
+    private Long issueId;
     private boolean status;
 
 

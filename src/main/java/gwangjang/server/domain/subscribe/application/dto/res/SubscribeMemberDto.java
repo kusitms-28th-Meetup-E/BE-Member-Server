@@ -12,5 +12,5 @@ import java.util.List;
 public class SubscribeMemberDto {
     private String nickname;
     private String profileImg;
-    private List<SubscribeRes> subscribeResList;
+    private List<SubscribeMyPageRes> subscribeResList;
 }

@@ -1,6 +1,6 @@
 package gwangjang.server.domain.member.adapter.consumer.message;
 import gwangjang.server.domain.auth.application.mapper.MemberMapper;
-import gwangjang.server.domain.member.adapter.consumer.web.dto.post.MemberDto;
+import gwangjang.server.global.feign.dto.response.MemberDto;
 import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.domain.member.domain.service.MemberQueryService;
 import lombok.RequiredArgsConstructor;

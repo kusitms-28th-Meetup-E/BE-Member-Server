@@ -1,4 +1,4 @@
-package gwangjang.server.domain.member.adapter.consumer.web.dto.post;
+package gwangjang.server.global.feign.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

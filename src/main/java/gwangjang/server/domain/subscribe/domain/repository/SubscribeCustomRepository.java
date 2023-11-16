@@ -7,7 +7,7 @@ import gwangjang.server.domain.subscribe.domain.entity.Subscribe;
 public interface SubscribeCustomRepository {
 
     SubscribeMemberDto findAllSubscribeByMember(Member member);
-    Subscribe findSubscribeByMemberAndTopic(Member member, String topic, String issue);
+    Subscribe findSubscribeByMemberAndTopic(Member member, Long issueId);
     boolean findCountSubscribeByMember(Member member);
 
 }

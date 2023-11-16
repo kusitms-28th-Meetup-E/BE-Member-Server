@@ -4,24 +4,36 @@ import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.domain.subscribe.application.dto.res.SubscribeMemberDto;
 import gwangjang.server.domain.subscribe.domain.entity.Subscribe;
 import gwangjang.server.domain.subscribe.domain.repository.SubscribeRepository;
-import gwangjang.server.global.annotation.DomainService;
-import jakarta.transaction.Transactional;
+import gwangjang.server.global.feign.client.FindIssueFeignClient;
+import gwangjang.server.global.feign.dto.response.IssueDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Transactional
-@DomainService
+//@DomainService
+@Service
 @RequiredArgsConstructor
 public class SubscribeQueryService {
 
     private final SubscribeRepository subscribeRepository;
+//    private final FindIssueFeignClient findIssueFeignClient;
 
     public SubscribeMemberDto subscribeListByMember(Member member) {
-        return subscribeRepository.findAllSubscribeByMember(member);
+        SubscribeMemberDto subscribeMemberDto = subscribeRepository.findAllSubscribeByMember(member);
+        subscribeMemberDto.getSubscribeResList().stream().forEach(
+                subscribeMyPageRes ->
+                {
+                    Long issueId = subscribeMyPageRes.getIssueId();
+//                    IssueDto issueDto = findIssueFeignClient.getIssueByIssueId(issueId);
+//                    subscribeMyPageRes.updateNames(issueDto);
+
+                }
+        );
+
+        return subscribeMemberDto;
     }
 
-    public Subscribe findSubscribeByMemberAndTopic(Member member, String topic, String issue) {
-        return subscribeRepository.findSubscribeByMemberAndTopic(member, topic, issue);
+    public Subscribe findSubscribeByMemberAndTopic(Member member, Long topicId, Long issueId) {
+        return subscribeRepository.findSubscribeByMemberAndTopic(member,issueId);
     }
 
     public boolean isAbleToSubscribe(Member member) {

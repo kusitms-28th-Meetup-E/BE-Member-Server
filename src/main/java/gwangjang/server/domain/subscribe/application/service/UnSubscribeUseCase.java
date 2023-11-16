@@ -8,6 +8,7 @@ import gwangjang.server.domain.subscribe.domain.entity.Subscribe;
 import gwangjang.server.domain.subscribe.domain.service.SubscribeDeleteService;
 import gwangjang.server.domain.subscribe.domain.service.SubscribeQueryService;
 import gwangjang.server.global.annotation.DomainService;
+import gwangjang.server.global.feign.client.FindIssueFeignClient;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,10 +25,9 @@ public class UnSubscribeUseCase {
 
     private final SubscribeMapper subscribeMapper = new SubscribeMapper();
 
-
-    public SubscribeRes unSubscribe(String socialId, String topic, String issue) {
+    public SubscribeRes unSubscribe(String socialId, Long topicId, Long issueId) {
         Member member = memberQueryService.getMemberBySocialId(socialId);
-        Subscribe subscribe = subscribeQueryService.findSubscribeByMemberAndTopic(member, topic, issue);
+        Subscribe subscribe = subscribeQueryService.findSubscribeByMemberAndTopic(member, topicId,issueId);
         subscribeDeleteService.delete(subscribe);
 
         return subscribeMapper.mapToSubscribeRes(subscribe).setUnScribe();

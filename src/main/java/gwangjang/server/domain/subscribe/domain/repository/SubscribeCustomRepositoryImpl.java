@@ -6,6 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.domain.member.domain.entity.QMember;
 import gwangjang.server.domain.subscribe.application.dto.res.SubscribeMemberDto;
+import gwangjang.server.domain.subscribe.application.dto.res.SubscribeMyPageRes;
 import gwangjang.server.domain.subscribe.application.dto.res.SubscribeRes;
 import gwangjang.server.domain.subscribe.domain.entity.Subscribe;
 import jakarta.persistence.EntityManager;
@@ -25,10 +26,9 @@ public class SubscribeCustomRepositoryImpl implements SubscribeCustomRepository 
 
     public SubscribeMemberDto findAllSubscribeByMember(Member member) {
         // 서브쿼리로 Member와 관련된 모든 Subscribe 가져오기
-        List<SubscribeRes> subscribeResList = queryFactory
-                .select(Projections.fields(SubscribeRes.class,
-                        subscribe.topic,
-                        subscribe.issue
+        List<SubscribeMyPageRes> subscribeResList = queryFactory
+                .select(Projections.fields(SubscribeMyPageRes.class,
+                        subscribe.issueId
                 ))
                 .from(subscribe)
                 .where(subscribe.member.eq(member))
@@ -46,13 +46,12 @@ public class SubscribeCustomRepositoryImpl implements SubscribeCustomRepository 
                 .fetchOne();
     }
 
-    public Subscribe findSubscribeByMemberAndTopic(Member member, String topic, String issue) {
+    public Subscribe findSubscribeByMemberAndTopic(Member member,Long issueId) {
         return queryFactory
                 .select(subscribe)
                 .from(subscribe)
                 .where(subscribe.member.eq(member),
-                        subscribe.topic.eq(topic),
-                        subscribe.issue.eq(issue)
+                        subscribe.issueId.eq(issueId)
                 ).fetchOne();
     }
 

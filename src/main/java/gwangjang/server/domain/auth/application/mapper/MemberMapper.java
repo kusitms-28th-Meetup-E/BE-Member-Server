@@ -2,7 +2,7 @@ package gwangjang.server.domain.auth.application.mapper;
 
 import gwangjang.server.domain.auth.application.dto.request.LocalSignUpRequest;
 import gwangjang.server.domain.auth.application.dto.response.KakaoUserResponse;
-import gwangjang.server.domain.member.adapter.consumer.web.dto.post.MemberDto;
+import gwangjang.server.global.feign.dto.response.MemberDto;
 import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.domain.member.domain.entity.constant.RegistrationStatus;
 import gwangjang.server.domain.member.domain.entity.constant.Role;

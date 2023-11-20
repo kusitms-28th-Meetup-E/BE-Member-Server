@@ -26,8 +26,8 @@ public class SubscribeMapper {
 
     public SubscribeMyPageRes mapToSubscribeMyPageRes(IssueDto issueDto) {
         return SubscribeMyPageRes.builder()
-                .topic(issueDto.getTopic())
-                .issue(issueDto.getIssue())
+                .topic(issueDto.getTopicTitle())
+                .issue(issueDto.getIssueTitle())
                 .imgUrl(issueDto.getImgUrl())
                 .build();
     }

@@ -20,8 +20,8 @@ public class SubscribeMyPageRes {
     }
 
     public void updateNames(IssueDto issueDto) {
-        this.topic = issueDto.getTopic();
-        this.issue = issueDto.getIssue();
+        this.topic = issueDto.getTopicTitle();
+        this.issue = issueDto.getIssueTitle();
         this.imgUrl = issueDto.getImgUrl();
     }
 }

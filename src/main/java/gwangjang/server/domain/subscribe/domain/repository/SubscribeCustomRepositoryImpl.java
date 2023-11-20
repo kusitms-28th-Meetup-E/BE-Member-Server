@@ -5,6 +5,7 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.domain.member.domain.entity.QMember;
+import gwangjang.server.domain.subscribe.application.dto.res.IssueBySubscribersRes;
 import gwangjang.server.domain.subscribe.application.dto.res.SubscribeMemberDto;
 import gwangjang.server.domain.subscribe.application.dto.res.SubscribeMyPageRes;
 import gwangjang.server.domain.subscribe.domain.entity.Subscribe;
@@ -12,7 +13,6 @@ import jakarta.persistence.EntityManager;
 
 import java.util.List;
 
-import static gwangjang.server.domain.member.domain.entity.QMember.*;
 import static gwangjang.server.domain.subscribe.domain.entity.QSubscribe.subscribe;
 
 
@@ -61,6 +61,28 @@ public class SubscribeCustomRepositoryImpl implements SubscribeCustomRepository 
         return queryFactory
                 .selectFrom(subscribe)
                 .where(subscribe.member.eq(member))
-                .fetch().size() < 4;
+                .fetch().size() < 3;
     }
+
+    public List<IssueBySubscribersRes> findIssueTop5BySubscribers() {
+        return queryFactory
+                .select(Projections.constructor(IssueBySubscribersRes.class,
+                        subscribe.issueId,
+                        subscribe.member.count()))
+                .from(subscribe)
+                .groupBy(subscribe.issueId)
+                .orderBy(subscribe.member.count().desc()) // 수정된 부분
+                .limit(5)
+                .fetch();
+
+    }
+
+    public Long findSubscribeCountsByIssue(Long issueId) {
+        return queryFactory
+                .select(subscribe.member.count())
+                .from(subscribe)
+                .where(subscribe.issueId.eq(issueId))
+                .fetchOne();
+    }
+
 }

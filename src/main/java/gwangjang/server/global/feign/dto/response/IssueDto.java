@@ -1,16 +1,16 @@
 package gwangjang.server.global.feign.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Builder
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class IssueDto {
-    private String topic;
-    private String issue;
+    private String issueTitle;
+    private String topicTitle;
     private String imgUrl;
+    private Long issueId;
+    private Long topicId;
 }

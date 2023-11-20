@@ -9,14 +9,9 @@ import gwangjang.server.domain.subscribe.domain.entity.Subscribe;
 import gwangjang.server.domain.subscribe.domain.service.SubscribeQueryService;
 import gwangjang.server.domain.subscribe.domain.service.SubscribeSaveService;
 import gwangjang.server.domain.subscribe.exception.NoAccessSubscribe;
-import gwangjang.server.global.annotation.DomainService;
-import gwangjang.server.global.feign.dto.response.IssueDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @Transactional

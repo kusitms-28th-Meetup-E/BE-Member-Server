@@ -2,6 +2,7 @@ package gwangjang.server.domain.subscribe.domain.repository;
 
 import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.domain.subscribe.application.dto.res.IssueBySubscribersRes;
+import gwangjang.server.domain.subscribe.application.dto.res.SubscribeIssueFeignRes;
 import gwangjang.server.domain.subscribe.application.dto.res.SubscribeMemberDto;
 import gwangjang.server.domain.subscribe.domain.entity.Subscribe;
 
@@ -14,7 +15,7 @@ public interface SubscribeCustomRepository {
     boolean findCountSubscribeByMember(Member member);
     List<IssueBySubscribersRes> findIssueTop5BySubscribers();
     Long findSubscribeCountsByIssue(Long issueId);
-    List<Long> findMySubscribeList(Member member);
+    List<SubscribeIssueFeignRes> findMySubscribeList(Member member);
 
 
 

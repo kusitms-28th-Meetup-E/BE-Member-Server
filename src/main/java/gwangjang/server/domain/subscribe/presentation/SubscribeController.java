@@ -74,7 +74,7 @@ public class SubscribeController {
      * @return
      */
     @GetMapping("/subscribe/contents")
-    public ResponseEntity<SuccessResponse<List<Long>>> getMySubscribeIssueList(@RequestHeader(value = "user-id") String socialId) {
+    public ResponseEntity<SuccessResponse<List<SubscribeIssueFeignRes>>> getMySubscribeIssueList(@RequestHeader(value = "user-id") String socialId) {
         return ResponseEntity.ok(SuccessResponse.create(GET_MY_SUBSCRIBES_SUCCESS.getMessage(), this.subscribeContentsUseCase.getMySubscribeIssueList(socialId)));
     }
 

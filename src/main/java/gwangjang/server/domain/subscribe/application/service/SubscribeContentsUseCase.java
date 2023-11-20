@@ -2,6 +2,7 @@ package gwangjang.server.domain.subscribe.application.service;
 
 import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.domain.member.domain.service.MemberQueryService;
+import gwangjang.server.domain.subscribe.application.dto.res.SubscribeIssueFeignRes;
 import gwangjang.server.domain.subscribe.application.mapper.SubscribeMapper;
 import gwangjang.server.domain.subscribe.domain.service.SubscribeQueryService;
 import jakarta.transaction.Transactional;
@@ -20,7 +21,7 @@ public class SubscribeContentsUseCase {
     private final SubscribeQueryService subscribeQueryService;
     private final SubscribeMapper subscribeMapper = new SubscribeMapper();
 
-    public List<Long> getMySubscribeIssueList(String memberId) {
+    public List<SubscribeIssueFeignRes> getMySubscribeIssueList(String memberId) {
         Member member = memberQueryService.getMemberBySocialId(memberId);
         return subscribeQueryService.getMySubscribeList(member);
     }

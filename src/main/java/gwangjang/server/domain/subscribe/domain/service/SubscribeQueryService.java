@@ -94,7 +94,17 @@ public class SubscribeQueryService {
 
     }
 
-    public List<Long> getMySubscribeList(Member member) {
-        return subscribeRepository.findMySubscribeList(member);
+    public List<SubscribeIssueFeignRes> getMySubscribeList(Member member) {
+        List<SubscribeIssueFeignRes> mySubscribeList = subscribeRepository.findMySubscribeList(member);
+        mySubscribeList.stream().forEach(
+                mySubscribe->{
+                    Long issueId = mySubscribe.getIssueId();
+
+                    IssueDto issueDto = findKeywordFeignClient.
+                            getIssueByIssueId(issueId).getBody().getData();
+                    mySubscribe.updateIssue(issueDto.getIssueTitle());
+                }
+        );
+        return mySubscribeList;
     }
 }

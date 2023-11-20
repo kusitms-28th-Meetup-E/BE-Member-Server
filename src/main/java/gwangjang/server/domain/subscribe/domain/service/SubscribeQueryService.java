@@ -2,10 +2,7 @@ package gwangjang.server.domain.subscribe.domain.service;
 
 import gwangjang.server.domain.FindKeywordFeignClient;
 import gwangjang.server.domain.member.domain.entity.Member;
-import gwangjang.server.domain.subscribe.application.dto.res.IssueBySubscribeRecommendRes;
-import gwangjang.server.domain.subscribe.application.dto.res.IssueBySubscribersRes;
-import gwangjang.server.domain.subscribe.application.dto.res.IssueSubscribeInfoRes;
-import gwangjang.server.domain.subscribe.application.dto.res.SubscribeMemberDto;
+import gwangjang.server.domain.subscribe.application.dto.res.*;
 import gwangjang.server.domain.subscribe.domain.entity.Subscribe;
 import gwangjang.server.domain.subscribe.domain.repository.SubscribeRepository;
 import gwangjang.server.global.annotation.DomainService;
@@ -95,5 +92,9 @@ public class SubscribeQueryService {
 
         return issueBySubscribeRecommendRes;
 
+    }
+
+    public List<Long> getMySubscribeList(Member member) {
+        return subscribeRepository.findMySubscribeList(member);
     }
 }

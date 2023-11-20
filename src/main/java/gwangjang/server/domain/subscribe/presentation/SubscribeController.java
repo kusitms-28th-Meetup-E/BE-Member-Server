@@ -66,7 +66,7 @@ public class SubscribeController {
      */
     @GetMapping("/subscribe/issue/{issueId}")
     public ResponseEntity<SuccessResponse<IssueSubscribeInfoRes>> getIssueSubscribers(@PathVariable("issueId") Long issueId) {
-        return ResponseEntity.ok(SuccessResponse.create(GET_ISSUE_LIST_BY_SUBSCRIBERS.getMessage(), this.subscribeReadUseCase.getSubscribeIssueInfo(issueId)));
+        return ResponseEntity.ok(SuccessResponse.create(GET_SUBSCRIBERS_BY_ISSUE.getMessage(), this.subscribeReadUseCase.getSubscribeIssueInfo(issueId)));
     }
      /**
      * 로그인 한 사용자 구독 정보 (List<Long>) -> contents

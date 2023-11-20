@@ -14,6 +14,8 @@ public interface SubscribeCustomRepository {
     boolean findCountSubscribeByMember(Member member);
     List<IssueBySubscribersRes> findIssueTop5BySubscribers();
     Long findSubscribeCountsByIssue(Long issueId);
+    List<Long> findMySubscribeList(Member member);
+
 
 
     }

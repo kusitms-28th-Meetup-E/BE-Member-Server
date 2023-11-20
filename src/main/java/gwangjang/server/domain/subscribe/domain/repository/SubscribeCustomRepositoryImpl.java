@@ -85,4 +85,14 @@ public class SubscribeCustomRepositoryImpl implements SubscribeCustomRepository 
                 .fetchOne();
     }
 
+    public List<Long> findMySubscribeList(Member member) {
+        return queryFactory
+                .select(
+                        subscribe.issueId
+                )
+                .from(subscribe)
+                .where(subscribe.member.eq(member))
+                .fetch();
+    }
+
 }

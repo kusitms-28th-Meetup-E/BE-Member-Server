@@ -1,10 +1,8 @@
 package gwangjang.server.domain.subscribe.presentation;
 
 
-import gwangjang.server.domain.subscribe.application.dto.res.IssueBySubscribersRes;
-import gwangjang.server.domain.subscribe.application.dto.res.IssueSubscribeInfoRes;
-import gwangjang.server.domain.subscribe.application.dto.res.SubscribeMemberDto;
-import gwangjang.server.domain.subscribe.application.dto.res.SubscribeRes;
+import gwangjang.server.domain.subscribe.application.dto.res.*;
+import gwangjang.server.domain.subscribe.application.service.SubscribeContentsUseCase;
 import gwangjang.server.domain.subscribe.application.service.SubscribeReadUseCase;
 import gwangjang.server.domain.subscribe.application.service.SubscribeUseCase;
 import gwangjang.server.domain.subscribe.application.service.UnSubscribeUseCase;
@@ -27,6 +25,7 @@ public class SubscribeController {
     private final UnSubscribeUseCase unSubscribeUseCase;
 
     private final SubscribeReadUseCase subscribeReadUseCase;
+    private final SubscribeContentsUseCase subscribeContentsUseCase;
 
     @PostMapping("/topic/{topicId}/issue/{issueId}/subscribe")
     public ResponseEntity<SuccessResponse<SubscribeRes>> subscribe(@RequestHeader(value = "user-id") String socialId,
@@ -61,13 +60,22 @@ public class SubscribeController {
     }
 
      /**
-     * 주제 상세페이지 구독자 정보
+     * 주제 상세페이지 구독자 수
      * @param issueId
      * @return
      */
     @GetMapping("/subscribe/issue/{issueId}")
     public ResponseEntity<SuccessResponse<IssueSubscribeInfoRes>> getIssueSubscribers(@PathVariable("issueId") Long issueId) {
-        return ResponseEntity.ok(SuccessResponse.create(GET_ISSUE_LIST_BY_SUBSCRIBERS.getMessage(), this.subscribeReadUseCase.getSubscribeIssueInfo(issueId)));
+        return ResponseEntity.ok(SuccessResponse.create(GET_SUBSCRIBERS_BY_ISSUE.getMessage(), this.subscribeReadUseCase.getSubscribeIssueInfo(issueId)));
+    }
+     /**
+     * 로그인 한 사용자 구독 정보 (List<Long>) -> contents
+     * @param
+     * @return
+     */
+    @GetMapping("/subscribe/contents")
+    public ResponseEntity<SuccessResponse<List<Long>>> getMySubscribeIssueList(@RequestHeader(value = "user-id") String socialId) {
+        return ResponseEntity.ok(SuccessResponse.create(GET_MY_SUBSCRIBES_SUCCESS.getMessage(), this.subscribeContentsUseCase.getMySubscribeIssueList(socialId)));
     }
 
 

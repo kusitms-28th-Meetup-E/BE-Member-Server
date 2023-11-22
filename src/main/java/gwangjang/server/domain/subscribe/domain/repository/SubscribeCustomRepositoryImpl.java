@@ -6,6 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.domain.member.domain.entity.QMember;
 import gwangjang.server.domain.subscribe.application.dto.res.IssueBySubscribersRes;
+import gwangjang.server.domain.subscribe.application.dto.res.SubscribeIssueFeignRes;
 import gwangjang.server.domain.subscribe.application.dto.res.SubscribeMemberDto;
 import gwangjang.server.domain.subscribe.application.dto.res.SubscribeMyPageRes;
 import gwangjang.server.domain.subscribe.domain.entity.Subscribe;
@@ -85,11 +86,11 @@ public class SubscribeCustomRepositoryImpl implements SubscribeCustomRepository 
                 .fetchOne();
     }
 
-    public List<Long> findMySubscribeList(Member member) {
+    public List<SubscribeIssueFeignRes> findMySubscribeList(Member member) {
         return queryFactory
-                .select(
+                .select(Projections.constructor(SubscribeIssueFeignRes.class,
                         subscribe.issueId
-                )
+                ))
                 .from(subscribe)
                 .where(subscribe.member.eq(member))
                 .fetch();

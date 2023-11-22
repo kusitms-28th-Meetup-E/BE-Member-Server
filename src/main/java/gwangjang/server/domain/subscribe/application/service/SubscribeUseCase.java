@@ -2,6 +2,7 @@ package gwangjang.server.domain.subscribe.application.service;
 
 import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.domain.member.domain.service.MemberQueryService;
+import gwangjang.server.domain.subscribe.application.dto.res.IssueBySubscribersRes;
 import gwangjang.server.domain.subscribe.application.dto.res.SubscribeMemberDto;
 import gwangjang.server.domain.subscribe.application.dto.res.SubscribeRes;
 import gwangjang.server.domain.subscribe.application.mapper.SubscribeMapper;
@@ -12,6 +13,8 @@ import gwangjang.server.domain.subscribe.exception.NoAccessSubscribe;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -29,7 +32,7 @@ public class SubscribeUseCase {
 
         if (subscribeQueryService.isAbleToSubscribe(member)) {
             Subscribe save = subscribeSaveService.save(subscribeMapper.mapToSubscribe(member, issueId));
-            return subscribeMapper.mapToSubscribeRes(save).setSubscribe();
+            return subscribeMapper.mapToSubscribeRes(save).setSubscribe(subscribeQueryService.getSubscribers(issueId));
 
         }else{
             throw new NoAccessSubscribe();

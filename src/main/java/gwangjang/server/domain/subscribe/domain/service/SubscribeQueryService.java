@@ -107,4 +107,8 @@ public class SubscribeQueryService {
         );
         return mySubscribeList;
     }
+
+    public Long getSubscribers(Long issueId) {
+        return subscribeRepository.findSubscribeCountsByIssue(issueId);
+    }
 }

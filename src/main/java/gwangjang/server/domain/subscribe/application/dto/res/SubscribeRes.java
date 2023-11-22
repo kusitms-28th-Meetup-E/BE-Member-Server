@@ -13,14 +13,17 @@ public class SubscribeRes {
 
     private Long issueId;
     private boolean status;
+    private Long subscribers;
 
 
-    public SubscribeRes setUnScribe() {
+    public SubscribeRes setUnScribe(Long subscribers) {
         this.status = Boolean.FALSE;
+        this.subscribers = subscribers;
         return this;
     }
-    public SubscribeRes setSubscribe() {
+    public SubscribeRes setSubscribe(Long subscribers) {
         this.status = Boolean.TRUE;
+        this.subscribers = subscribers;
         return this;
     }
 

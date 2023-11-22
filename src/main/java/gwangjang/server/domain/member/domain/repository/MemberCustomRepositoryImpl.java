@@ -3,8 +3,9 @@ package gwangjang.server.domain.member.domain.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 
-import static gwangjang.server.domain.member.domain.entity.QMember.member;
+import gwangjang.server.domain.member.domain.entity.QMember;
 
+import static gwangjang.server.domain.member.domain.entity.QMember.member;
 
 public class MemberCustomRepositoryImpl implements MemberCustomRepository {
 

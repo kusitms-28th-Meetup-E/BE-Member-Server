@@ -28,7 +28,6 @@ public class UnSubscribeUseCase {
         Member member = memberQueryService.getMemberBySocialId(socialId);
         Subscribe subscribe = subscribeQueryService.findSubscribeByMemberAndTopic(member, topicId,issueId);
         subscribeDeleteService.delete(subscribe);
-
-        return subscribeMapper.mapToSubscribeRes(subscribe).setUnScribe();
+        return subscribeMapper.mapToSubscribeRes(subscribe).setUnScribe(subscribeQueryService.getSubscribers(issueId));
     }
 }

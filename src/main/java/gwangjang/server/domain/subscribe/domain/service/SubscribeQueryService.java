@@ -2,6 +2,8 @@ package gwangjang.server.domain.subscribe.domain.service;
 
 import gwangjang.server.domain.FindKeywordFeignClient;
 import gwangjang.server.domain.member.domain.entity.Member;
+import gwangjang.server.domain.subscribe.adapter.producer.web.dto.MainBubbleRes;
+import gwangjang.server.domain.subscribe.adapter.producer.web.dto.SubscribersByIssueDto;
 import gwangjang.server.domain.subscribe.application.dto.res.*;
 import gwangjang.server.domain.subscribe.domain.entity.Subscribe;
 import gwangjang.server.domain.subscribe.domain.repository.SubscribeRepository;
@@ -111,4 +113,14 @@ public class SubscribeQueryService {
     public Long getSubscribers(Long issueId) {
         return subscribeRepository.findSubscribeCountsByIssue(issueId);
     }
+
+
+    public List<SubscribersByIssueDto> getIssueBySubscribers() {
+        return subscribeRepository.getIssueBySubscribers();
+    }
+
+
+
+
+
 }

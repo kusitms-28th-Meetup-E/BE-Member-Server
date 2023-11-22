@@ -1,5 +1,6 @@
 package gwangjang.server.domain.subscribe.application.service;
 
+import gwangjang.server.domain.subscribe.adapter.producer.web.dto.SubscribersByIssueDto;
 import gwangjang.server.domain.subscribe.application.dto.res.IssueBySubscribersRes;
 import gwangjang.server.domain.subscribe.application.dto.res.IssueBySubscribeRecommendRes;
 import gwangjang.server.domain.subscribe.application.dto.res.IssueSubscribeInfoRes;
@@ -27,6 +28,11 @@ public class SubscribeReadUseCase {
     public IssueSubscribeInfoRes getSubscribeIssueInfo(Long issueId) {
         return subscribeQueryService.getIssueInfo(issueId);
     }
+
+    public List<SubscribersByIssueDto> getAllIssueBySubscribers() {
+        return subscribeQueryService.getIssueBySubscribers();
+    }
+
 
 
 }

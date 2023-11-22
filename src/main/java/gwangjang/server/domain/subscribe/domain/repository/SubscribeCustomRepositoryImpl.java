@@ -5,6 +5,8 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.domain.member.domain.entity.QMember;
+import gwangjang.server.domain.subscribe.adapter.producer.web.dto.MainBubbleRes;
+import gwangjang.server.domain.subscribe.adapter.producer.web.dto.SubscribersByIssueDto;
 import gwangjang.server.domain.subscribe.application.dto.res.IssueBySubscribersRes;
 import gwangjang.server.domain.subscribe.application.dto.res.SubscribeIssueFeignRes;
 import gwangjang.server.domain.subscribe.application.dto.res.SubscribeMemberDto;
@@ -94,6 +96,21 @@ public class SubscribeCustomRepositoryImpl implements SubscribeCustomRepository 
                 .from(subscribe)
                 .where(subscribe.member.eq(member))
                 .fetch();
+    }
+
+    public List<SubscribersByIssueDto> getIssueBySubscribers() {
+
+        return queryFactory
+                .select(Projections.constructor(SubscribersByIssueDto.class,
+                        subscribe.issueId,
+                        subscribe.member.count()
+                ))
+                .from(subscribe)
+                .groupBy(subscribe.issueId)
+                .orderBy(subscribe.member.count().desc())
+                .limit(10)
+                .fetch();
+
     }
 
 }

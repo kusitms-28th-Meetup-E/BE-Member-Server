@@ -1,4 +1,4 @@
-package gwangjang.server.domain.member.adapter.consumer.message;
+package gwangjang.server.domain.subscribe.adapter.consumer.message;
 import gwangjang.server.domain.auth.application.mapper.MemberMapper;
 import gwangjang.server.global.feign.dto.response.MemberDto;
 import gwangjang.server.domain.member.domain.entity.Member;
@@ -11,7 +11,7 @@ import java.util.function.Function;
 
 @Configuration
 @RequiredArgsConstructor
-public class CommunityChannels {
+public class KeywordChannels {
 
     private final MemberQueryService memberQueryService;
     private final MemberMapper memberMapper;
@@ -32,7 +32,7 @@ public class CommunityChannels {
 //    }
 
     @Bean
-    public Function<String, MemberDto> receiveFromCommunity() {
+    public Function<String, MemberDto> receiveFromKeyword() {
         return memberId -> {
             // memberId를 사용하여 Member 객체를 조회
             Member member = memberQueryService.getMemberBySocialId(memberId);

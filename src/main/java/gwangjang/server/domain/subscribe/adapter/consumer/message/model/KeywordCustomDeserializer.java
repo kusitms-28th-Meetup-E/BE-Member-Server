@@ -1,4 +1,4 @@
-package gwangjang.server.domain.member.adapter.consumer.message.model;
+package gwangjang.server.domain.subscribe.adapter.consumer.message.model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import gwangjang.server.global.feign.dto.response.MemberDto;
@@ -9,7 +9,7 @@ import org.apache.kafka.common.serialization.Deserializer;
 import java.util.Map;
 
 @RequiredArgsConstructor
-public class CommunityCustomDeserializer implements Deserializer<MemberDto> {
+public class KeywordCustomDeserializer implements Deserializer<MemberDto> {
 
     private final ObjectMapper objectMapper;
 

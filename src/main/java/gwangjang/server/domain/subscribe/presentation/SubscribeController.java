@@ -32,6 +32,11 @@ public class SubscribeController {
                                                                    @PathVariable("topicId") Long topicId, @PathVariable("issueId") Long issueId) {
         return ResponseEntity.ok(SuccessResponse.create(SUBSCRIBE_SUCCESS.getMessage(), this.subscribeUseCase.subscribe(socialId, topicId, issueId)));
     }
+    @GetMapping("/topic/{topicId}/issue/{issueId}/subscribe")
+    public ResponseEntity<SuccessResponse<Boolean>> issubscribe(@RequestHeader(value = "user-id") String socialId,
+                                                                   @PathVariable("topicId") Long topicId, @PathVariable("issueId") Long issueId) {
+        return ResponseEntity.ok(SuccessResponse.create(SUBSCRIBE_SUCCESS.getMessage(), this.subscribeUseCase.isSubscriber(socialId, topicId, issueId)));
+    }
 
     @DeleteMapping("/topic/{topicId}/issue/{issueId}/subscribe")
     public ResponseEntity<SuccessResponse<SubscribeRes>> unSubscribe(@RequestHeader(value = "user-id") String socialId,

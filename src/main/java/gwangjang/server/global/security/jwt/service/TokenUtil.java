@@ -78,7 +78,7 @@ public class TokenUtil implements InitializingBean {
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
 
-        return TokenInfoResponse.from("Bearer", accessToken, refreshToken, refreshTokenValidityTime);
+        return TokenInfoResponse.from("Bearer", accessToken, refreshToken, refreshTokenValidityTime,socialId);
     }
 
     public boolean verifyToken(String token) {

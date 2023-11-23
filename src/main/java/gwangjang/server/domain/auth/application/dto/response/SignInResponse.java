@@ -15,6 +15,7 @@ public class SignInResponse {
     private String accessToken;
     private String refreshToken;
     private Boolean registrationStatus;
+    private String memberId;
 
     public static SignInResponse from(TokenInfoResponse tokenInfoResponse, RegistrationStatus registrationStatus) {
         return SignInResponse.builder()
@@ -22,5 +23,9 @@ public class SignInResponse {
                 .refreshToken(tokenInfoResponse.getRefreshToken())
                 .registrationStatus(registrationStatus.equals(RegistrationStatus.COMPLETED))
                 .build();
+    }
+
+    public void updateMemberId(String memberId) {
+        this.memberId = memberId;
     }
 }

@@ -27,11 +27,17 @@ public class SubscribeUseCase {
 
     private final SubscribeMapper subscribeMapper = new SubscribeMapper();
 
+//    private final PublishSubscribeChange publishSubscribeChange;
+
+
     public SubscribeRes subscribe(String socialId,Long topicId, Long issueId) {
         Member member = memberQueryService.getMemberBySocialId(socialId);
 
         if (subscribeQueryService.isAbleToSubscribe(member)) {
             Subscribe save = subscribeSaveService.save(subscribeMapper.mapToSubscribe(member, issueId));
+
+//            publishSubscribeChange.publishMemberChange();
+
             return subscribeMapper.mapToSubscribeRes(save).setSubscribe(subscribeQueryService.getSubscribers(issueId));
 
         }else{

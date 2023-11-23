@@ -2,6 +2,7 @@ package gwangjang.server.domain.subscribe.domain.repository;
 
 import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.domain.subscribe.adapter.producer.web.dto.MainBubbleRes;
+import gwangjang.server.domain.subscribe.adapter.producer.web.dto.SubscribeData;
 import gwangjang.server.domain.subscribe.adapter.producer.web.dto.SubscribersByIssueDto;
 import gwangjang.server.domain.subscribe.application.dto.res.IssueBySubscribersRes;
 import gwangjang.server.domain.subscribe.application.dto.res.SubscribeIssueFeignRes;
@@ -19,7 +20,7 @@ public interface SubscribeCustomRepository {
     Long findSubscribeCountsByIssue(Long issueId);
     List<SubscribeIssueFeignRes> findMySubscribeList(Member member);
 
-    List<SubscribersByIssueDto> getIssueBySubscribers();
+    List<SubscribeData> getIssueBySubscribers();
 
 
 

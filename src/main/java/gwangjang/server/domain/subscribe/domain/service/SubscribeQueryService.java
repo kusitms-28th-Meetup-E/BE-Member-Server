@@ -3,6 +3,7 @@ package gwangjang.server.domain.subscribe.domain.service;
 import gwangjang.server.domain.FindKeywordFeignClient;
 import gwangjang.server.domain.member.domain.entity.Member;
 import gwangjang.server.domain.subscribe.adapter.producer.web.dto.MainBubbleRes;
+import gwangjang.server.domain.subscribe.adapter.producer.web.dto.SubscribeData;
 import gwangjang.server.domain.subscribe.adapter.producer.web.dto.SubscribersByIssueDto;
 import gwangjang.server.domain.subscribe.application.dto.res.*;
 import gwangjang.server.domain.subscribe.domain.entity.Subscribe;
@@ -115,7 +116,7 @@ public class SubscribeQueryService {
     }
 
 
-    public List<SubscribersByIssueDto> getIssueBySubscribers() {
+    public List<SubscribeData> getIssueBySubscribers() {
         return subscribeRepository.getIssueBySubscribers();
     }
 

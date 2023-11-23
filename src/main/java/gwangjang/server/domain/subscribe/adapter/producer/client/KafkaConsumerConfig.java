@@ -1,4 +1,4 @@
-package gwangjang.server.domain.member.adapter.producer.client;//package gwangjang.server.domain.adapter.out.client;
+package gwangjang.server.domain.subscribe.adapter.producer.client;//package gwangjang.server.domain.adapter.out.client;
 //
 //
 //import org.apache.kafka.clients.consumer.ConsumerConfig;

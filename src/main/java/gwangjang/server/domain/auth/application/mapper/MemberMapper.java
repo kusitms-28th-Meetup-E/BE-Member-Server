@@ -39,6 +39,7 @@ public class MemberMapper {
                 .gender(localSignUpRequest.getGender())
                 .loginId(localSignUpRequest.getId())
                 .loginPw(localSignUpRequest.getPw())
+                .profileImage("https://gwang-jang.s3.ap-northeast-2.amazonaws.com/%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84.png")
                 .build();
     }
 

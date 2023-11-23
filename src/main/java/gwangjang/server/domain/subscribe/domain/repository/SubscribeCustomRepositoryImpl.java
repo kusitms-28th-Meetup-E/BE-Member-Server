@@ -51,7 +51,7 @@ public class SubscribeCustomRepositoryImpl implements SubscribeCustomRepository 
                 .fetchOne();
     }
 
-    public Subscribe findSubscribeByMemberAndTopic(Member member,Long issueId) {
+    public Subscribe findSubscribeByMemberAndTopic(Member member, Long issueId) {
         return queryFactory
                 .select(subscribe)
                 .from(subscribe)
@@ -114,4 +114,9 @@ public class SubscribeCustomRepositoryImpl implements SubscribeCustomRepository 
 
     }
 
+
+
 }
+
+
+

@@ -34,7 +34,15 @@ public class SubscribeUseCase {
         Member member = memberQueryService.getMemberBySocialId(socialId);
 
         if (subscribeQueryService.isAbleToSubscribe(member)) {
+
+            if (member.getSubscribeList().stream()
+                    .anyMatch(subscribe -> subscribe.getIssueId().equals(issueId))) {
+
+                throw new NoAccessSubscribe();
+
+            }
             Subscribe save = subscribeSaveService.save(subscribeMapper.mapToSubscribe(member, issueId));
+            member.getSubscribeList().add(save);
 
 //            publishSubscribeChange.publishMemberChange();
 

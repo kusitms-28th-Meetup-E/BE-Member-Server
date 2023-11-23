@@ -22,6 +22,7 @@ public class SignInResponse {
                 .accessToken(tokenInfoResponse.getAccessToken())
                 .refreshToken(tokenInfoResponse.getRefreshToken())
                 .registrationStatus(registrationStatus.equals(RegistrationStatus.COMPLETED))
+                .memberId(tokenInfoResponse.getMemberId())
                 .build();
     }
 

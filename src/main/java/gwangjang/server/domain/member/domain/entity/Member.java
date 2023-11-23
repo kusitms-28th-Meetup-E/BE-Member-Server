@@ -57,8 +57,8 @@ public class Member {
     private String birth;
     private String gender;
 
-//    @OneToMany(fetch = FetchType.LAZY)
-//    private List<Subscribe> subscribeList = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Subscribe> subscribeList = new ArrayList<>();
 
     public void signUp(SignUpRequest signUpRequest) {
         this.nickname = signUpRequest.getNickname();

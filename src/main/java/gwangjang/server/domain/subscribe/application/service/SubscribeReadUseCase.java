@@ -33,6 +33,10 @@ public class SubscribeReadUseCase {
     public List<SubscribeData> getAllIssueBySubscribers() {
         return subscribeQueryService.getIssueBySubscribers();
     }
+    //issue Id , counT값 보재문
+    // 키워드로 보내서
+    // 메인 url 연결
+    //키워드랑 영역이랑 맵핑해서
 
 
 

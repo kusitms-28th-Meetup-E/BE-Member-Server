@@ -54,6 +54,13 @@ public class SubscribeUseCase {
 
     }
 
+    public Boolean isSubscriber(String socialId, Long topicId, Long issueId) {
+        Member member = memberQueryService.getMemberBySocialId(socialId);
+
+        return subscribeQueryService.isAbleToSubscribe(member);
+
+    }
+
     // 마이페이지에 보여줄 내 구독 목록 & contentService와 feign 통신 .
     public SubscribeMemberDto getAllSubscribeByMember(String socialId) {
         Member member = memberQueryService.getMemberBySocialId(socialId);

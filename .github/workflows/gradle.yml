@@ -50,6 +50,7 @@
             port: ${{ secrets.PORT }}
             source: "./docker-compose-member.yml"
             target: "/home/ec2-user/"
+
             
       - name: Deploy
         uses: appleboy/ssh-action@master
